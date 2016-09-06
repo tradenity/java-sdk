@@ -14,6 +14,14 @@ To use the Tradenity SDK, you must have:
 
 The SDK is available through our maven repository, You can install it using any compatible tool.
 
+```xml
+<repository>
+    <id>tradenity-public</id>
+    <name>tradenity-public-releases</name>
+    <url>http://artifacts.tradenity.com/artifactory/tradenity-release-public</url>
+</repository>
+```
+
 ### Maven
 
 ```xml
@@ -27,7 +35,9 @@ The SDK is available through our maven repository, You can install it using any 
 
 ### Gradle
 
-`com.tradenity:java-sdk:0.8.0`
+Add this line to the `dependency section`
+
+`compile com.tradenity:java-sdk:0.8.0`
 
 ### Ivy
 
@@ -51,7 +61,7 @@ Tradenity client needs the API key and an instance of `SessionTokenStore`
 which is an object that makes Tradenity session integrates with the web framework's session mechanism.
 The Java SDK provide the interface and a default implementation suitable for single user application (such as android app),
 and it's easy to implement your own for other frameworks, It is a simple 3 method interface.
-If you are using Spring framework or Grails, the [Spring SDK extension](https://hithub.com/tradenity/java-sdk-springmvc) provide implementation suitable for Spring and Grails.
+If you are using Spring framework or Grails, the [Spring SDK extension](https://github.com/tradenity/java-sdk-spring-ext) provide implementation suitable for Spring and Grails.
 
 
 
@@ -88,7 +98,7 @@ You can find the code at github:
 
 We also provide a detailed explanation of the code of these sample applications in the form of a step by step tutorials:
 
-[Camera store for spring mvc tutorial](http://docs.tradenity.con/kb/tutorials/java/springmvc).
+[Camera store for spring mvc tutorial](http://docs.tradenity.com/kb/tutorials/java/springmvc).
 
-[Camera store for grails tutorial](http://docs.tradenity.con/kb/tutorials/groovy/grails).
+[Camera store for grails tutorial](http://docs.tradenity.com/kb/tutorials/groovy/grails).
 
