@@ -90,6 +90,8 @@ Brand brand = brandService.findById("1243-9786786-jhgjtu-789s6i");
 
 We provide 2 sample applications, actually it is the same application implemented using 2 frameworks: `Spring MVC`, and `Grails`.
 
+Live demo of [Camerastore](https://camerastore-java-spring-sample.herokuapp.com/)
+
 You can find the code at github:
 
 [Camera store for spring mvc code](https://github.com/tradenity/camerastore-java-springmvc-sample).
