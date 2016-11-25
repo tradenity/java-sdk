@@ -5,7 +5,7 @@ import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.exceptions.*;
 import com.tradenity.sdk.exceptions.messages.*;
 import com.tradenity.sdk.model.Page;
-import com.tradenity.sdk.model.ResourcePage;
+import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.ResourceFactory;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -36,71 +36,62 @@ public class AbstractService {
     protected<M> M run(Call<M> call){
         try {
             Response<M> response = call.execute();
-            int status = response.code();
-            if(status >= 400 && status < 500){
-                String cause = response.errorBody().string();
-                throw createErrorException(cause);
-            }else if (status >=500){
-                String cause = response.errorBody().string();
-                throw new ServerErrorException(cause);
-            }
-            return response.body();
-        } catch (IOException e) {
-            throw new ClientErrorException("Cannot execute request.", e);
-        }
-    }
-
-    protected RequestErrorException createErrorException(String cause) {
-        Gson gson = new Gson();
-        ErrorMessage err = gson.fromJson(cause, ErrorMessage.class);
-
-        if(err.getStatus() == 401){
-            if(client.getSessionTokenStore().hasToken()){
-                return new SessionExpiredException(err);
+            if(response.code() >= 400 ){
+                throw createErrorException(response);
             }else {
-                return new AuthenticationException(err.getMessage());
+                return response.body();
             }
-        }else if(err.getErrorCode() == ApiError.ACCESS_DENIED_ERROR_CODE){
-            return new AuthorizationException(err);
-        }else if(err.getErrorCode() == ApiError.NOT_FOUND_ERROR_CODE){
-            return new EntityNotFoundException(err);
-        }else if(err.getErrorCode() == ApiError.DATA_VALIDATION_ERROR_CODE){
-            return new DataValidationException(err);
-        }else if(err.getErrorCode() == ApiError.INVALID_PAYMENT_ERROR_CODE){
-            return new PaymentException(err);
-        }else if(err.getErrorCode() == ApiError.GATEWAY_ERROR_ERROR_CODE){
-            return new GatewayErrorException(err);
-        }else if(err.getErrorCode() == ApiError.REFUND_ERROR_ERROR_CODE){
-            return new RefundException(err);
-        }else if(err.getErrorCode() == ApiError.CART_INVALID_ITEM_ERROR_CODE){
-            return new ShoppingCartException(err);
-        }else if(err.getErrorCode() == ApiError.INVENTORY_INVALID_PRODUCT_ERROR_CODE){
-            return new InventoryErrorException(err);
-        }else if(err.getErrorCode() == ApiError.INVENTORY_NOT_AVAILABLE_PRODUCT_ERROR_CODE){
-            return new InventoryErrorException(err);
-        }else if(err.getErrorCode() == ApiError.EXISTING_EMAIL_ERROR_CODE){
-            return new CustomerCreationException(err);
-        }else if(err.getErrorCode() == ApiError.EXISTING_USERNAME_ERROR_CODE){
-            return new CustomerCreationException(err);
-        }else {
-            return new RequestErrorException(err);
-        }
-    }
-
-    protected boolean isSuccessful(Call call){
-        try {
-            Response response = call.execute();
-            int status = response.code();
-            if(status >= 400 && status < 500){
-                throw new RequestErrorException();
-            }else if (status >=500){
-                throw new ServerErrorException();
-            }
-            return true;
         } catch (IOException e) {
             throw new ClientErrorException("Cannot execute request.", e);
         }
     }
+
+    protected RequestErrorException createErrorException(Response response) {
+        try {
+            int statusCode = response.code();
+            String cause = response.errorBody().string();
+            Gson gson = new Gson();
+            ErrorMessage err = gson.fromJson(cause, ErrorMessage.class);
+
+            if (statusCode == 500) {
+                throw new ServerErrorException();
+            } else if (statusCode == 401) {
+                if (client.getSessionTokenStore().hasToken()) {
+                    return new SessionExpiredException(err);
+                } else {
+                    return new AuthenticationException(err.getMessage());
+                }
+            } else if (statusCode == 403) {
+                return new AuthorizationException(err);
+            } else if (statusCode == 404) {
+                return new EntityNotFoundException(err);
+            } else if (statusCode == 400) {
+                if (err.getErrorCode() == ApiError.DATA_VALIDATION_ERROR_CODE) {
+                    return new DataValidationException(err);
+                } else if (err.getErrorCode() == ApiError.INVALID_PAYMENT_ERROR_CODE) {
+                    return new PaymentException(err);
+                } else if (err.getErrorCode() == ApiError.GATEWAY_ERROR_ERROR_CODE) {
+                    return new GatewayErrorException(err);
+                } else if (err.getErrorCode() == ApiError.REFUND_ERROR_ERROR_CODE) {
+                    return new RefundException(err);
+                } else if (err.getErrorCode() == ApiError.CART_INVALID_ITEM_ERROR_CODE) {
+                    return new ShoppingCartException(err);
+                } else if (err.getErrorCode() == ApiError.INVENTORY_INVALID_PRODUCT_ERROR_CODE) {
+                    return new InventoryErrorException(err);
+                } else if (err.getErrorCode() == ApiError.INVENTORY_NOT_AVAILABLE_PRODUCT_ERROR_CODE) {
+                    return new InventoryErrorException(err);
+                } else if (err.getErrorCode() == ApiError.EXISTING_EMAIL_ERROR_CODE) {
+                    return new CustomerCreationException(err);
+                } else if (err.getErrorCode() == ApiError.EXISTING_USERNAME_ERROR_CODE) {
+                    return new CustomerCreationException(err);
+                }
+            }
+            return new RequestErrorException(err);
+        }catch (IOException e) {
+            throw new ClientErrorException("Cannot parse error response.", e);
+        }
+    }
+
 
     protected<T> List<T> createList(Call<List<T>> call) {
         return run(call);

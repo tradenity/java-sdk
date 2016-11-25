@@ -4,8 +4,8 @@
     <groupId>com.tradenity</groupId>
     <artifactId>java-sdk</artifactId>
     <packaging>jar</packaging>
-    <version>0.8.0</version>
-    <name>java-sdk Maven Webapp</name>
+    <version>0.8.1</version>
+    <name>Java SDK</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -63,7 +63,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.3</version>
                 <configuration>
-                    <excludePackageNames>com.tradenity.sdk.resources</excludePackageNames>
+                    <excludePackageNames>com.tradenity.sdk.resources:com.tradenity.sdk.request</excludePackageNames>
                 </configuration>
             </plugin>
         </plugins>

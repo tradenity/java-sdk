@@ -15,7 +15,6 @@ import java.io.IOException;
  */
 public class ApiInterceptor implements Interceptor {
 
-    //public static final String AUTH_TOKEN_HEADER_NAME = "x-auth-token";
     public static final String AUTH_TOKEN_HEADER_NAME = "X-Tradenity-Session-ID";
     String apiKey;
     SessionTokenStore tokenStore;

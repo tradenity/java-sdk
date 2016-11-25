@@ -5,7 +5,7 @@ import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.Brand;
 import com.tradenity.sdk.model.Page;
 import com.tradenity.sdk.model.PageRequest;
-import com.tradenity.sdk.model.ResourcePage;
+import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.BrandResource;
 import retrofit2.Call;
 
@@ -94,13 +94,13 @@ public class BrandService extends AbstractService{
         return createInstance(call);
     }
 
-    public boolean delete(String id){
+    public void delete(String id){
         Call<Void> call =  getBrandResource().delete(id);
-        return isSuccessful(call);
+        run(call);
     }
 
-    public boolean delete(Brand brand){
-        return delete(brand.getId());
+    public void delete(Brand brand){
+        delete(brand.getId());
     }
 
     private Map<String, Object> toMap(Brand brand) {

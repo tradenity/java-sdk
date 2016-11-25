@@ -3,6 +3,7 @@ package com.tradenity.sdk.services;
 
 import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.*;
+import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.ShippingMethodResource;
 import retrofit2.Call;
 
@@ -75,13 +76,13 @@ public class ShippingMethodService extends AbstractService{
         return createInstance(call);
     }
 
-    public boolean delete(String id){
+    public void delete(String id){
         Call<Void> call =  getShippingMethodResource().delete(id);
-        return isSuccessful(call);
+        run(call);
     }
 
-    public boolean delete(ShippingMethod shippingMethod){
-        return delete(shippingMethod.getId());
+    public void delete(ShippingMethod shippingMethod){
+        delete(shippingMethod.getId());
     }
 
     public Map<String, Object> toMap(ShippingMethod shippingMethod) {

@@ -1,7 +1,6 @@
 package com.tradenity.sdk.resources;
 
 import com.tradenity.sdk.model.Order;
-import com.tradenity.sdk.model.ResourcePage;
 import com.tradenity.sdk.model.Transaction;
 import retrofit2.Call;
 import retrofit2.http.*;

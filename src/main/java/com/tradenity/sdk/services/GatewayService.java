@@ -4,6 +4,7 @@ package com.tradenity.sdk.services;
 import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.*;
 import com.tradenity.sdk.resources.GatewayResource;
+import com.tradenity.sdk.resources.ResourcePage;
 import retrofit2.Call;
 
 import java.util.HashMap;
@@ -72,13 +73,13 @@ public class GatewayService extends AbstractService{
         return createInstance(call);
     }
 
-    public boolean delete(String id){
+    public void delete(String id){
         Call<Void> call =  getGatewayResource().delete(id);
-        return isSuccessful(call);
+        run(call);
     }
 
-    public boolean delete(Gateway gateway){
-        return delete(gateway.getId());
+    public void delete(Gateway gateway){
+        delete(gateway.getId());
     }
 
     public Map<String, Object> toMap(Gateway gateway) {

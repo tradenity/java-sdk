@@ -4,11 +4,13 @@ package com.tradenity.sdk.services;
 import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.*;
 import com.tradenity.sdk.resources.OrderResource;
+import com.tradenity.sdk.resources.ResourcePage;
 import retrofit2.Call;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 /**
@@ -81,13 +83,13 @@ public class OrderService extends AbstractService{
         return createInstance(call);
     }
 
-    public boolean delete(String id){
+    public void delete(String id){
         Call<Void> call =  getOrderResource().delete(id);
-        return isSuccessful(call);
+        run(call);
     }
 
-    public boolean delete(Order order){
-        return delete(order.getId());
+    public void delete(Order order){
+        delete(order.getId());
     }
 
     private Map<String, Object> placeOrderMap(Order order) {
@@ -131,6 +133,17 @@ public class OrderService extends AbstractService{
         m.put("state", address.getState());
         m.put("zipCode", address.getZipCode());
         m.put("country", address.getCountry());
-        return m;
+        return removeNullEntries(m);
+    }
+
+    protected Map<String, Object> removeNullEntries(Map<String, Object> m){
+        Map<String, Object> result = new HashMap<>();
+        for(String k: m.keySet()){
+            Object v = m.get(k);
+            if(v != null){
+                result.put(k,v);
+            }
+        }
+        return result;
     }
 }

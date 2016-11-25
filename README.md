@@ -15,11 +15,13 @@ To use the Tradenity SDK, you must have:
 The SDK is available through our maven repository, You can install it using any compatible tool.
 
 ```xml
+
 <repository>
     <id>tradenity-public</id>
     <name>tradenity-public-releases</name>
     <url>http://artifacts.tradenity.com/artifactory/tradenity-release-public</url>
 </repository>
+
 ```
 
 ### Maven
@@ -28,7 +30,7 @@ The SDK is available through our maven repository, You can install it using any 
 <dependency>
     <groupId>com.tradenity</groupId>
     <artifactId>java-sdk</artifactId>
-    <version>0.8.0</version>
+    <version>0.8.1</version>
 </dependency>
 
 ```
@@ -37,13 +39,13 @@ The SDK is available through our maven repository, You can install it using any 
 
 Add this line to the `dependency section`
 
-`compile com.tradenity:java-sdk:0.8.0`
+`compile com.tradenity:java-sdk:0.8.1`
 
 ### Ivy
 
 ```xml
 
-<dependency org="com.tradenity" name="java-sdk" rev="0.8.0"/>
+<dependency org="com.tradenity" name="java-sdk" rev="0.8.1"/>
 
 ```
 
@@ -90,9 +92,9 @@ Brand brand = brandService.findById("1243-9786786-jhgjtu-789s6i");
 
 We provide 2 sample applications, actually it is the same application implemented using 2 frameworks: `Spring MVC`, and `Grails`.
 
-Live demo of [Camerastore](https://camerastore-java-spring-sample.herokuapp.com/)
+Live demo of [Camerastore](http://camera-store-sample.tradenity.com), check it out to have an idea of what Tradenity API can do.
 
-You can find the code at github:
+You can find the code at Github:
 
 [Camera store for spring mvc code](https://github.com/tradenity/camerastore-java-springmvc-sample).
 

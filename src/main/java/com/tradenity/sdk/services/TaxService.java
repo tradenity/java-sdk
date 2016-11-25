@@ -3,6 +3,7 @@ package com.tradenity.sdk.services;
 
 import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.*;
+import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.TaxResource;
 import retrofit2.Call;
 
@@ -90,13 +91,13 @@ public class TaxService extends AbstractService{
         return createInstance(call);
     }
 
-    public boolean delete(String id){
+    public void delete(String id){
         Call<Void> call =  getTaxResource().delete(id);
-        return isSuccessful(call);
+        run(call);
     }
 
-    public boolean delete(Tax tax){
-        return delete(tax.getId());
+    public void delete(Tax tax){
+        delete(tax.getId());
     }
 
     private Map<String, Object> toMap(Tax tax) {

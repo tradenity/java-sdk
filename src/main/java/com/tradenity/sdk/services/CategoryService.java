@@ -5,7 +5,7 @@ import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.Category;
 import com.tradenity.sdk.model.Page;
 import com.tradenity.sdk.model.PageRequest;
-import com.tradenity.sdk.model.ResourcePage;
+import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.CategoryResource;
 import retrofit2.Call;
 
@@ -91,13 +91,13 @@ public class CategoryService extends AbstractService{
         return createInstance(call);
     }
 
-    public boolean delete(String id){
+    public void delete(String id){
         Call<Void> call =  getCategoryResource().delete(id);
-        return isSuccessful(call);
+        run(call);
     }
 
-    public boolean delete(Category category){
-        return delete(category.getId());
+    public void delete(Category category){
+        delete(category.getId());
     }
 
     public Map<String, Object> toMap(Category category) {

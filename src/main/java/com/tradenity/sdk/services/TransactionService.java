@@ -3,6 +3,7 @@ package com.tradenity.sdk.services;
 
 import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.*;
+import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.TransactionResource;
 import retrofit2.Call;
 
@@ -75,13 +76,13 @@ public class TransactionService extends AbstractService{
         return createInstance(call);
     }
 
-    public boolean delete(String id){
+    public void delete(String id){
         Call<Void> call =  getTransactionResource().delete(id);
-        return isSuccessful(call);
+        run(call);
     }
 
-    public boolean delete(Transaction transaction){
-        return delete(transaction.getId());
+    public void delete(Transaction transaction){
+        delete(transaction.getId());
     }
 
     public Map<String, Object> toMap(Transaction tx) {

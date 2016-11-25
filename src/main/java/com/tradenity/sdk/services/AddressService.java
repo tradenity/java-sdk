@@ -4,7 +4,7 @@ package com.tradenity.sdk.services;
 import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.*;
 import com.tradenity.sdk.resources.AddressResource;
-//import com.tradenity.sdk.utils.ObjectUtils;
+import com.tradenity.sdk.resources.ResourcePage;
 import retrofit2.Call;
 
 import java.util.HashMap;
@@ -76,13 +76,13 @@ public class AddressService extends AbstractService{
         return createInstance(call);
     }
 
-    public boolean delete(String id){
+    public void delete(String id){
         Call<Void> call =  getAddressResource().delete(id);
-        return isSuccessful(call);
+        run(call);
     }
 
-    public boolean delete(Address address){
-        return delete(address.getId());
+    public void delete(Address address){
+        delete(address.getId());
     }
 
     private Map<String, Object> toMap(Address address) {

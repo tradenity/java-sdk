@@ -1,7 +1,6 @@
 package com.tradenity.sdk.resources;
 
 import com.tradenity.sdk.model.Category;
-import com.tradenity.sdk.model.ResourcePage;
 import retrofit2.Call;
 import retrofit2.http.*;
 

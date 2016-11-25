@@ -4,6 +4,7 @@ package com.tradenity.sdk.services;
 import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.*;
 import com.tradenity.sdk.resources.ProductResource;
+import com.tradenity.sdk.resources.ResourcePage;
 import retrofit2.Call;
 
 import java.util.Collections;
@@ -89,13 +90,13 @@ public class ProductService extends AbstractService{
         return createInstance(call);
     }
 
-    public boolean delete(String id){
+    public void delete(String id){
         Call<Void> call = getProductResource().delete(id);
-        return isSuccessful(call);
+        run(call);
     }
 
-    public boolean delete(Product product){
-        return delete(product.getId());
+    public void delete(Product product){
+        delete(product.getId());
     }
 
     private Map<String, Object> toMap(Product product) {

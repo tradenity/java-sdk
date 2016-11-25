@@ -1,4 +1,6 @@
-package com.tradenity.sdk.model;
+package com.tradenity.sdk.resources;
+
+import com.tradenity.sdk.model.PageInfo;
 
 import java.util.List;
 import java.util.Map;
