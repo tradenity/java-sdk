@@ -1,23 +1,33 @@
 package com.tradenity.sdk.model;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Date;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 1:15 PM
- */
+
 public class Brand extends BaseModel{
 
+    
     public static final String STATUS_ENABLED = "enabled";
     public static final String STATUS_DISABLED = "disabled";
+    private String name;
+    private String slug;
+    private String status;
+    private String description;
+    private Photo photo;
 
-    String name;
-    String title;
-    String status;
-    String description;
-
+    public Brand(){
+    }
+    
+    public Brand id(String id) {
+        this.setId(id);
+        return this;
+    }
     public String getName() {
         return name;
     }
@@ -25,15 +35,23 @@ public class Brand extends BaseModel{
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getTitle() {
-        return title;
+    
+    public Brand name(String name) {
+        this.setName(name);
+        return this;
+    }
+    public String getSlug() {
+        return slug;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
-
+    
+    public Brand slug(String slug) {
+        this.setSlug(slug);
+        return this;
+    }
     public String getStatus() {
         return status;
     }
@@ -41,13 +59,34 @@ public class Brand extends BaseModel{
     public void setStatus(String status) {
         this.status = status;
     }
-
+    
+    public Brand status(String status) {
+        this.setStatus(status);
+        return this;
+    }
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public Brand description(String description) {
+        this.setDescription(description);
+        return this;
+    }
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+    
+    public Brand photo(Photo photo) {
+        this.setPhoto(photo);
+        return this;
     }
 
 }

@@ -3,25 +3,21 @@ package com.tradenity.sdk.services;
 
 import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.*;
-import com.tradenity.sdk.resources.OrderResource;
 import com.tradenity.sdk.resources.ResourcePage;
+import com.tradenity.sdk.resources.OrderResource;
 import retrofit2.Call;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 3:06 PM
- */
 public class OrderService extends AbstractService{
+
     OrderResource orderResource;
+
     public OrderService(TradenityClient client) {
-        super(client, "orders");
+        super(client);
     }
 
     protected OrderResource getOrderResource(){
@@ -31,22 +27,9 @@ public class OrderService extends AbstractService{
         return orderResource;
     }
 
-    public Page<Order> findAll(){
-        return findAll(new PageRequest());
-    }
-
     public Page<Order> findAll(PageRequest pageRequest){
         Call<ResourcePage<Order>> call =  getOrderResource().index(pageRequest.asMap());
         return createPage(call);
-    }
-
-    public Page<Order> search(Order order){
-        return search(order, new PageRequest());
-    }
-
-    public Page<Order> search(Order order, PageRequest pageRequest){
-        Map<String, Object> fields = primitiveMap(order);
-        return search(fields, pageRequest);
     }
 
     public Page<Order> search(Map<String, Object> fields, PageRequest pageRequest){
@@ -54,12 +37,54 @@ public class OrderService extends AbstractService{
         if(pageRequest != null) {
             params.putAll(pageRequest.asMap());
         }
-        Call<ResourcePage<Order>> call =  getOrderResource().index(params);
+
+        Call<ResourcePage<Order>> call =  getOrderResource().index(fields);
         return createPage(call);
     }
 
-    public Page<Order> findAllByCustomer(Customer customer, PageRequest pageRequest) {
-        return search(Collections.<String, Object>singletonMap("customer", customer.getId()), pageRequest);
+    public Order findBy(String attribute, String value){
+        return findOne(Collections.<String, Object>singletonMap(attribute, value));
+    }
+
+    public Order findBy(String attribute, BaseModel model){
+        return findBy(attribute, model.getId());
+    }
+
+    public Page<Order> findAll(){
+        return findAll(new PageRequest());
+    }
+
+    public Page<Order> findAllBy(String attribute, String value){
+        return search(attribute, value);
+    }
+
+    public Page<Order> findAllBy(String attribute, BaseModel model){
+        return findAllBy(attribute, model.getId());
+    }
+
+    public Page<Order> findAllBy(String attribute, String value, PageRequest pageRequest){
+        return search(Collections.<String, Object>singletonMap(attribute, value), pageRequest);
+    }
+
+    public Page<Order> findAllBy(String attribute, BaseModel model, PageRequest pageRequest){
+        return findAllBy(attribute, model.getId(), pageRequest);
+    }
+
+    public Page<Order> search(String attribute, Object value){
+        return search(Collections.singletonMap(attribute, value), new PageRequest());
+    }
+
+    public Page<Order> search(Map<String, Object> fields){
+        return search(fields, new PageRequest());
+    }
+
+    public Order findOne(Map<String, Object> fields){
+        List<Order> content = search(fields).getContent();
+        if(content != null && content.size() > 0) {
+            return content.get(0);
+        }else{
+            return null;
+        }
     }
 
     public Order findById(String id){
@@ -67,19 +92,18 @@ public class OrderService extends AbstractService{
         return createInstance(call);
     }
 
-    public Transaction placeOrder(Order order, String stripeToken) {
-        Map<String, Object> fields = placeOrderMap(order);
-        fields.put("paymentSource", stripeToken);
-        Call<Transaction> call =  getOrderResource().create(fields);
+    public Order create(Order order){
+        Call<Order> call =  getOrderResource().save(order);
         return createInstance(call);
     }
 
-    public Transaction refund(Order order) {
-        return refund(order.getId());
+    public Order update(Order order){
+        Call<Order> call =  getOrderResource().update(order.getId(), order);
+        return createInstance(call);
     }
 
-    public Transaction refund(String orderId) {
-        Call<Transaction> call =  getOrderResource().refund(orderId);
+    public Order replace(Order order){
+        Call<Order> call =  getOrderResource().replace(order.getId(), order);
         return createInstance(call);
     }
 
@@ -90,60 +114,5 @@ public class OrderService extends AbstractService{
 
     public void delete(Order order){
         delete(order.getId());
-    }
-
-    private Map<String, Object> placeOrderMap(Order order) {
-        Map<String, Object> m = new HashMap<>();
-        if(order.getCustomer() != null && order.getCustomer().getId() != null) {
-            m.put("customer", order.getCustomer().getId());
-        }else{
-            throw new IllegalStateException("Order must have a customer with customer Id.");
-        }
-        if(order.getCurrency() != null && order.getCurrency().getId() != null){
-            m.put("currency", order.getCurrency().getId());
-        }
-        if(order.getGateway() != null && order.getGateway().getId() != null){
-            m.put("gateway", order.getGateway().getId());
-        }
-        if(order.getShippingMethod() != null && order.getShippingMethod().getId() != null){
-            m.put("shippingMethod", order.getShippingMethod().getId());
-        }
-        if(order.getBillingAddress() != null){
-            m.putAll(withPrefix("billingAddress.", addressAsMap(order.getBillingAddress())));
-        }
-        if(order.getShippingAddress() != null){
-            m.putAll(withPrefix("shippingAddress.", addressAsMap(order.getShippingAddress())));
-        }
-        return m;
-    }
-    private Map<String, Object> primitiveMap(Order order) {
-        Map<String, Object> m = new HashMap<>();
-        m.put("status", order.getStatus());
-        m.put("total", order.getTotal());
-        m.put("subtotal", order.getSubtotal());
-        m.put("shippingCost", order.getShippingCost());
-        return m;
-    }
-
-    private Map<String, Object> addressAsMap(Address address) {
-        Map<String, Object> m = new HashMap<>();
-        m.put("streetLine1", address.getStreetLine1());
-        m.put("streetLine2", address.getStreetLine2());
-        m.put("city", address.getCity());
-        m.put("state", address.getState());
-        m.put("zipCode", address.getZipCode());
-        m.put("country", address.getCountry());
-        return removeNullEntries(m);
-    }
-
-    protected Map<String, Object> removeNullEntries(Map<String, Object> m){
-        Map<String, Object> result = new HashMap<>();
-        for(String k: m.keySet()){
-            Object v = m.get(k);
-            if(v != null){
-                result.put(k,v);
-            }
-        }
-        return result;
     }
 }

@@ -1,15 +1,21 @@
 package com.tradenity.sdk.model;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 2:53 PM
- */
+
 public class PageInfo {
     int size;
     int totalElements;
     int totalPages;
     int number;
+
+    public PageInfo() {
+    }
+
+    public PageInfo(int size, int totalElements, int totalPages, int number) {
+        this.size = size;
+        this.totalElements = totalElements;
+        this.totalPages = totalPages;
+        this.number = number;
+    }
 
     public int getSize() {
         return size;

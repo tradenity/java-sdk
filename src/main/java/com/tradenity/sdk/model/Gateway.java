@@ -1,23 +1,35 @@
 package com.tradenity.sdk.model;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 1:15 PM
- */
+import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Date;
+
+
 public class Gateway extends BaseModel{
-    String name;
-    String title;
-    String status;
-    String mode;
-    String accountId;
-    String description;
-    String secretKey;
-    String publicKey;
-    String testSecretKey;
-    String testPublicKey;
 
+    
+    public static final String MODE_TEST = "test";
+    public static final String MODE_LIVE = "live";
+    public static final String STATUS_ENABLED = "enabled";
+    public static final String STATUS_DISABLED = "disabled";
+    private String name;
+    private String mode;
+    private Boolean authorizeOnly = false;
+    private String accountId;
+    private String status;
 
+    public Gateway(){
+    }
+    
+    public Gateway id(String id) {
+        this.setId(id);
+        return this;
+    }
     public String getName() {
         return name;
     }
@@ -25,31 +37,11 @@ public class Gateway extends BaseModel{
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getTitle() {
-        return title;
+    
+    public Gateway name(String name) {
+        this.setName(name);
+        return this;
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getMode() {
         return mode;
     }
@@ -57,7 +49,23 @@ public class Gateway extends BaseModel{
     public void setMode(String mode) {
         this.mode = mode;
     }
+    
+    public Gateway mode(String mode) {
+        this.setMode(mode);
+        return this;
+    }
+    public Boolean getAuthorizeOnly() {
+        return authorizeOnly;
+    }
 
+    public void setAuthorizeOnly(Boolean authorizeOnly) {
+        this.authorizeOnly = authorizeOnly;
+    }
+    
+    public Gateway authorizeOnly(Boolean authorizeOnly) {
+        this.setAuthorizeOnly(authorizeOnly);
+        return this;
+    }
     public String getAccountId() {
         return accountId;
     }
@@ -65,37 +73,22 @@ public class Gateway extends BaseModel{
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
-
-    public String getSecretKey() {
-        return secretKey;
+    
+    public Gateway accountId(String accountId) {
+        this.setAccountId(accountId);
+        return this;
+    }
+    public String getStatus() {
+        return status;
     }
 
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
+    public void setStatus(String status) {
+        this.status = status;
     }
-
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public String getTestSecretKey() {
-        return testSecretKey;
-    }
-
-    public void setTestSecretKey(String testSecretKey) {
-        this.testSecretKey = testSecretKey;
-    }
-
-    public String getTestPublicKey() {
-        return testPublicKey;
-    }
-
-    public void setTestPublicKey(String testPublicKey) {
-        this.testPublicKey = testPublicKey;
+    
+    public Gateway status(String status) {
+        this.setStatus(status);
+        return this;
     }
 
 }

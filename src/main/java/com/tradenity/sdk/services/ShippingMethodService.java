@@ -7,21 +7,17 @@ import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.ShippingMethodResource;
 import retrofit2.Call;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 3:06 PM
- */
 public class ShippingMethodService extends AbstractService{
 
     ShippingMethodResource shippingMethodResource;
 
     public ShippingMethodService(TradenityClient client) {
-        super(client, "shippingMethods");
+        super(client);
     }
 
     protected ShippingMethodResource getShippingMethodResource(){
@@ -31,25 +27,9 @@ public class ShippingMethodService extends AbstractService{
         return shippingMethodResource;
     }
 
-    public Page<ShippingMethod> findAll(){
-        return findAll(new PageRequest());
-    }
-
     public Page<ShippingMethod> findAll(PageRequest pageRequest){
         Call<ResourcePage<ShippingMethod>> call =  getShippingMethodResource().index(pageRequest.asMap());
         return createPage(call);
-    }
-
-    public Page<ShippingMethod> search(ShippingMethod shippingMethod){
-        return search(shippingMethod, new PageRequest());
-    }
-
-    public Page<ShippingMethod> search(ShippingMethod shippingMethod, PageRequest pageRequest){
-        return search(notNullMap(toMap(shippingMethod)), pageRequest);
-    }
-
-    public Page<ShippingMethod> search(Map<String, Object> fields){
-        return search(fields, new PageRequest());
     }
 
     public Page<ShippingMethod> search(Map<String, Object> fields, PageRequest pageRequest){
@@ -57,45 +37,58 @@ public class ShippingMethodService extends AbstractService{
         if(pageRequest != null) {
             params.putAll(pageRequest.asMap());
         }
+
         Call<ResourcePage<ShippingMethod>> call =  getShippingMethodResource().index(fields);
         return createPage(call);
     }
 
-    public ShippingMethod findById(String id){
-        Call<ShippingMethod> call =  getShippingMethodResource().findById(id);
-        return createInstance(call);
+    public ShippingMethod findBy(String attribute, String value){
+        return findOne(Collections.<String, Object>singletonMap(attribute, value));
     }
 
-    public ShippingMethod create(ShippingMethod shippingMethod){
-        Call<ShippingMethod> call =  getShippingMethodResource().save(toMap(shippingMethod));
-        return createInstance(call);
+    public ShippingMethod findBy(String attribute, BaseModel model){
+        return findBy(attribute, model.getId());
     }
 
-    public ShippingMethod update(ShippingMethod shippingMethod){
-        Call<ShippingMethod> call =  getShippingMethodResource().update(shippingMethod.getId(), notNullMap(toMap(shippingMethod)));
-        return createInstance(call);
+    public Page<ShippingMethod> findAll(){
+        return findAll(new PageRequest());
     }
 
-    public void delete(String id){
-        Call<Void> call =  getShippingMethodResource().delete(id);
-        run(call);
+    public Page<ShippingMethod> findAllBy(String attribute, String value){
+        return search(attribute, value);
     }
 
-    public void delete(ShippingMethod shippingMethod){
-        delete(shippingMethod.getId());
+    public Page<ShippingMethod> findAllBy(String attribute, BaseModel model){
+        return findAllBy(attribute, model.getId());
     }
 
-    public Map<String, Object> toMap(ShippingMethod shippingMethod) {
-        Map<String, Object> m = new HashMap<>();
-        m.put("name", shippingMethod.getName());
-        m.put("title", shippingMethod.getTitle());
-        m.put("status", shippingMethod.getStatus());
-        m.put("description", shippingMethod.getDescription());
-        m.put("costType", shippingMethod.getCostType());
-        m.put("fixedRate", shippingMethod.getFixedRate());
-        m.put("costPerUnitWeight", shippingMethod.getCostPerUnitWeight());
-        m.put("weightUnit", shippingMethod.getWeightUnit());
-        return m;
+    public Page<ShippingMethod> findAllBy(String attribute, String value, PageRequest pageRequest){
+        return search(Collections.<String, Object>singletonMap(attribute, value), pageRequest);
     }
 
+    public Page<ShippingMethod> findAllBy(String attribute, BaseModel model, PageRequest pageRequest){
+        return findAllBy(attribute, model.getId(), pageRequest);
+    }
+
+    public Page<ShippingMethod> search(String attribute, Object value){
+        return search(Collections.singletonMap(attribute, value), new PageRequest());
+    }
+
+    public Page<ShippingMethod> search(Map<String, Object> fields){
+        return search(fields, new PageRequest());
+    }
+
+    public ShippingMethod findOne(Map<String, Object> fields){
+        List<ShippingMethod> content = search(fields).getContent();
+        if(content != null && content.size() > 0) {
+            return content.get(0);
+        }else{
+            return null;
+        }
+    }
+
+    public List<ShippingMethod> findAllForOrder(String orderId){
+        Call<List<ShippingMethod>> call =  getShippingMethodResource().findAllForOrder(orderId);
+        return createList(call);
+    }
 }

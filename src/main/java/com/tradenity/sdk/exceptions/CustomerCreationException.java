@@ -1,29 +1,22 @@
 package com.tradenity.sdk.exceptions;
 
-import com.tradenity.sdk.exceptions.messages.ApiError;
-import com.tradenity.sdk.exceptions.messages.ErrorMessage;
 
-/**
- * Created by joseph
- * on 4/12/16.
- */
-public class CustomerCreationException extends RequestErrorException{
+public class CustomerCreationException extends ApplicationException{
+    public static final int EMAIL_ALREADY_REGISTERED = 1601;
+    public static final int ALREADY_REGISTERED_USERNAME = 1602;
 
-    public CustomerCreationException(ErrorMessage errorMessage) {
-        super(errorMessage);
+    static {
+        addError(EMAIL_ALREADY_REGISTERED,
+                "Email already registered.",
+                "Customer with this email already registered.",
+                "Customer with this email already registered.");
+        addError(ALREADY_REGISTERED_USERNAME,
+                "Already registered username.",
+                "Already registered username.",
+                "Already registered username, please choose different one.");
     }
 
-    public CustomerCreationException(ErrorMessage errorMessage, Throwable cause) {
-        super(errorMessage, cause);
-    }
-
-    public String getErrorFieldName() {
-        if(this.errorMessage.getErrorCode() == ApiError.EXISTING_EMAIL_ERROR_CODE){
-            return "email";
-        } else if(this.errorMessage.getErrorCode() == ApiError.EXISTING_USERNAME_ERROR_CODE){
-            return "username";
-        }else {
-            return null;
-        }
+    public CustomerCreationException(int errorCode) {
+        super(errorCode);
     }
 }

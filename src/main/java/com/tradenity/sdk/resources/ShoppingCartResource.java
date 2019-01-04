@@ -1,41 +1,30 @@
 package com.tradenity.sdk.resources;
 
-import com.tradenity.sdk.model.Checkout;
-import com.tradenity.sdk.model.LineItem;
-import com.tradenity.sdk.model.ShoppingCart;
+import com.tradenity.sdk.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.util.Set;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 4:42 PM
- */
 public interface ShoppingCartResource {
 
     @GET("shoppingCarts")
-    Call<ShoppingCart> index();
+    Call<ShoppingCart> get();
 
-    @GET("shoppingCarts/items")
-    Call<List<LineItem>> items();
-
-    @GET("shoppingCarts/checkout")
-    Call<Checkout> checkout();
-
-    @GET("shoppingCarts/{id}")
-    Call<LineItem> findOne(@Path("id") String id);
-
-    @FormUrlEncoded
     @POST("shoppingCarts")
-    Call<ShoppingCart> save(@FieldMap Map<String, Object> fields);
+    Call<ShoppingCart> addItem(@Body LineItem item);
 
-    @FormUrlEncoded
-    @PUT("shoppingCarts/{id}")
-    Call<ShoppingCart> update(@Path("id") String id, @FieldMap Map<String, Object> fields);
+    @PUT("shoppingCarts/{itemId}")
+    Call<ShoppingCart> updateItem(@Path("itemId") String itemId, @Body LineItem item);
 
-    @DELETE("shoppingCarts/{id}")
-    Call<ShoppingCart> delete(@Path("id") String id);
+    @POST("shoppingCarts/checkout")
+    Call<Order> checkout(@Body Order order);
+
+    @DELETE("shoppingCarts/{itemId}")
+    Call<ShoppingCart> deleteItem(@Path("itemId") String itemId);
+
+    @DELETE("shoppingCarts")
+    Call<ShoppingCart> empty();
 }

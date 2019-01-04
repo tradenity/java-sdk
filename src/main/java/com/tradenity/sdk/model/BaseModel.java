@@ -1,32 +1,37 @@
 package com.tradenity.sdk.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.tradenity.sdk.resources.ResourceMetaInfo;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 5:37 PM
- */
+
 public class BaseModel {
+
     protected String id ;
+
+    @Expose(serialize = false)
     protected Date createdAt;
+
+    @Expose(serialize = false)
     protected Date updatedAt;
 
-    protected Map<String, Link> _links = new HashMap<>();
+    @SerializedName("__meta")
+    protected ResourceMetaInfo metaInfo;
 
     public String getId() {
-        if (id == null) {
-            Link l = _links.get("self");
-            if(l != null){
-                String[] parts = l.getHref().split("/");
+        if (this.id == null) {
+            if(getMetaInfo() != null && getMetaInfo().getHref() != null){
+                String[] parts = getMetaInfo().getHref().split("/");
                 if(parts.length > 0) {
-                    return parts[parts.length - 1];
+                    this.id = parts[parts.length - 1];
                 }
             }
         }
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
@@ -49,8 +54,12 @@ public class BaseModel {
         this.updatedAt = updatedAt;
     }
 
-    public Map<String, Link> get_links() {
-        return _links;
+    public ResourceMetaInfo getMetaInfo() {
+        return metaInfo;
+    }
+
+    public void setMetaInfo(ResourceMetaInfo metaInfo) {
+        this.metaInfo = metaInfo;
     }
 
 }

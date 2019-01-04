@@ -1,36 +1,27 @@
 package com.tradenity.sdk.exceptions;
 
-import com.tradenity.sdk.exceptions.messages.ErrorMessage;
 
-/**
- * Created by joseph
- * on 4/12/16.
- */
-public class PaymentException extends RequestErrorException{
-    public PaymentException() {
+public class PaymentException extends ApplicationException{
+    public static final int PAYMENT_AMOUNT_MISMATCH = 1651;
+    public static final int CARD_NOT_CHARGED = 1652;
+    public static final int PAYMENT_ERROR = 1653;
+
+    static {
+        addError(PAYMENT_AMOUNT_MISMATCH,
+                "Payment amount mismatch",
+                "Paid amount does not match order",
+                "Paid amount does not match order");
+        addError(CARD_NOT_CHARGED,
+                "Card not charged!",
+                "Card not charged!",
+                "Card not charged!");
+        addError(PAYMENT_ERROR,
+                "Payment error",
+                "Payment error",
+                "Payment error");
     }
 
-    public PaymentException(String message) {
-        super(message);
-    }
-
-    public PaymentException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public PaymentException(Throwable cause) {
-        super(cause);
-    }
-
-    public PaymentException(ErrorMessage errorMessage) {
-        super(errorMessage);
-    }
-
-    public PaymentException(ErrorMessage errorMessage, Throwable cause) {
-        super(errorMessage, cause);
-    }
-
-    public PaymentException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public PaymentException(int errorCode) {
+        super(errorCode);
     }
 }

@@ -2,10 +2,6 @@ package com.tradenity.sdk.exceptions;
 
 import com.tradenity.sdk.exceptions.messages.ErrorMessage;
 
-/**
- * Created by joseph
- * on 4/12/16.
- */
 public class AuthorizationException extends RequestErrorException{
     public AuthorizationException() {
     }

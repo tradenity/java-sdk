@@ -1,17 +1,13 @@
 package com.tradenity.sdk.resources;
 
-import com.tradenity.sdk.model.Order;
-import com.tradenity.sdk.model.Transaction;
+import com.tradenity.sdk.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
 import java.util.Map;
+import java.util.List;
+import java.util.Set;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 4:42 PM
- */
 public interface OrderResource {
 
     @GET("orders")
@@ -20,16 +16,14 @@ public interface OrderResource {
     @GET("orders/{id}")
     Call<Order> findOne(@Path("id") String id);
 
-    @FormUrlEncoded
     @POST("orders")
-    Call<Transaction> create(@FieldMap Map<String, Object> fields);
+    Call<Order> save(@Body Order order);
 
-    @PUT("orders/{id}/refund")
-    Call<Transaction> refund(@Path("id") String id);
+    @PATCH("orders/{id}")
+    Call<Order> update(@Path("id") String id, @Body Order order);
 
-    @FormUrlEncoded
     @PUT("orders/{id}")
-    Call<Order> update(@Path("id") String id, @FieldMap Map<String, Object> fields);
+    Call<Order> replace(@Path("id") String id, @Body Order order);
 
     @DELETE("orders/{id}")
     Call<Void> delete(@Path("id") String id);

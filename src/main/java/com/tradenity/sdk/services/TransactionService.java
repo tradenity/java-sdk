@@ -7,21 +7,17 @@ import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.TransactionResource;
 import retrofit2.Call;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 3:06 PM
- */
 public class TransactionService extends AbstractService{
 
     TransactionResource transactionResource;
 
     public TransactionService(TradenityClient client) {
-        super(client, "transactions");
+        super(client);
     }
 
     protected TransactionResource getTransactionResource(){
@@ -31,25 +27,9 @@ public class TransactionService extends AbstractService{
         return transactionResource;
     }
 
-    public Page<Transaction> findAll(){
-        return findAll(new PageRequest());
-    }
-
     public Page<Transaction> findAll(PageRequest pageRequest){
         Call<ResourcePage<Transaction>> call =  getTransactionResource().index(pageRequest.asMap());
         return createPage(call);
-    }
-
-    public Page<Transaction> search(Transaction transaction){
-        return search(transaction, new PageRequest());
-    }
-
-    public Page<Transaction> search(Transaction transaction, PageRequest pageRequest){
-        return search(notNullMap(toMap(transaction)), pageRequest);
-    }
-
-    public Page<Transaction> search(Map<String, Object> fields){
-        return search(fields, new PageRequest());
     }
 
     public Page<Transaction> search(Map<String, Object> fields, PageRequest pageRequest){
@@ -57,22 +37,58 @@ public class TransactionService extends AbstractService{
         if(pageRequest != null) {
             params.putAll(pageRequest.asMap());
         }
+
         Call<ResourcePage<Transaction>> call =  getTransactionResource().index(fields);
         return createPage(call);
     }
 
+    public Transaction findBy(String attribute, String value){
+        return findOne(Collections.<String, Object>singletonMap(attribute, value));
+    }
+
+    public Transaction findBy(String attribute, BaseModel model){
+        return findBy(attribute, model.getId());
+    }
+
+    public Page<Transaction> findAll(){
+        return findAll(new PageRequest());
+    }
+
+    public Page<Transaction> findAllBy(String attribute, String value){
+        return search(attribute, value);
+    }
+
+    public Page<Transaction> findAllBy(String attribute, BaseModel model){
+        return findAllBy(attribute, model.getId());
+    }
+
+    public Page<Transaction> findAllBy(String attribute, String value, PageRequest pageRequest){
+        return search(Collections.<String, Object>singletonMap(attribute, value), pageRequest);
+    }
+
+    public Page<Transaction> findAllBy(String attribute, BaseModel model, PageRequest pageRequest){
+        return findAllBy(attribute, model.getId(), pageRequest);
+    }
+
+    public Page<Transaction> search(String attribute, Object value){
+        return search(Collections.singletonMap(attribute, value), new PageRequest());
+    }
+
+    public Page<Transaction> search(Map<String, Object> fields){
+        return search(fields, new PageRequest());
+    }
+
+    public Transaction findOne(Map<String, Object> fields){
+        List<Transaction> content = search(fields).getContent();
+        if(content != null && content.size() > 0) {
+            return content.get(0);
+        }else{
+            return null;
+        }
+    }
+
     public Transaction findById(String id){
-        Call<Transaction> call =  getTransactionResource().findById(id);
-        return createInstance(call);
-    }
-
-    public Transaction create(Transaction transaction){
-        Call<Transaction> call =  getTransactionResource().save(toMap(transaction));
-        return createInstance(call);
-    }
-
-    public Transaction update(Transaction transaction){
-        Call<Transaction> call =  getTransactionResource().update(transaction.getId(), notNullMap(toMap(transaction)));
+        Call<Transaction> call =  getTransactionResource().findOne(id);
         return createInstance(call);
     }
 
@@ -84,14 +100,4 @@ public class TransactionService extends AbstractService{
     public void delete(Transaction transaction){
         delete(transaction.getId());
     }
-
-    public Map<String, Object> toMap(Transaction tx) {
-        Map<String, Object> m = new HashMap<>();
-        m.put("gatewayOperationId", tx.getGatewayOperationId());
-        m.put("type", tx.getType());
-        m.put("status", tx.getStatus());
-        return m;
-    }
-
-
 }

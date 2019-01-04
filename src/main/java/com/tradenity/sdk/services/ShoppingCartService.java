@@ -2,26 +2,22 @@ package com.tradenity.sdk.services;
 
 
 import com.tradenity.sdk.client.TradenityClient;
-import com.tradenity.sdk.model.Checkout;
-import com.tradenity.sdk.model.LineItem;
-import com.tradenity.sdk.model.ShoppingCart;
+import com.tradenity.sdk.model.*;
+import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.ShoppingCartResource;
 import retrofit2.Call;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 3:06 PM
- */
 public class ShoppingCartService extends AbstractService{
 
     ShoppingCartResource shoppingCartResource;
 
     public ShoppingCartService(TradenityClient client) {
-        super(client, "brands");
+        super(client);
     }
 
     protected ShoppingCartResource getShoppingCartResource(){
@@ -32,42 +28,32 @@ public class ShoppingCartService extends AbstractService{
     }
 
     public ShoppingCart get(){
-        Call<ShoppingCart> call =  getShoppingCartResource().index();
-        return createInstance(call);
-    }
-
-    public Checkout checkout(){
-        Call<Checkout> call =  getShoppingCartResource().checkout();
-        return createInstance(call);
-    }
-
-    public List<LineItem> findAll(){
-        Call<List<LineItem>> call =  getShoppingCartResource().items();
-        return createList(call);
-    }
-
-    public LineItem findById(String id){
-        Call<LineItem> call =  getShoppingCartResource().findOne(id);
+        Call<ShoppingCart> call =  getShoppingCartResource().get();
         return createInstance(call);
     }
 
     public ShoppingCart addItem(LineItem item){
-        Call<ShoppingCart> call =  getShoppingCartResource().save(item.toMap());
-        ShoppingCart sc = createInstance(call);
-        return sc;
-    }
-
-    public ShoppingCart update(LineItem item){
-        Call<ShoppingCart> call =  getShoppingCartResource().update(item.getId(), item.toMap());
+        Call<ShoppingCart> call =  getShoppingCartResource().addItem(item);
         return createInstance(call);
     }
 
-    public ShoppingCart delete(String id){
-        Call<ShoppingCart> call =  getShoppingCartResource().delete(id);
-        return run(call);
+    public ShoppingCart updateItem(String itemId, LineItem item){
+        Call<ShoppingCart> call =  getShoppingCartResource().updateItem(itemId, item);
+        return createInstance(call);
     }
 
-    public ShoppingCart update(String itemId, Integer quantity) {
-        return update(new LineItem(itemId, quantity));
+    public Order checkout(Order order){
+        Call<Order> call =  getShoppingCartResource().checkout(order);
+        return createInstance(call);
+    }
+
+    public ShoppingCart deleteItem(String itemId){
+        Call<ShoppingCart> call =  getShoppingCartResource().deleteItem(itemId);
+        return createInstance(call);
+    }
+
+    public ShoppingCart empty(){
+        Call<ShoppingCart> call =  getShoppingCartResource().empty();
+        return createInstance(call);
     }
 }

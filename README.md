@@ -12,17 +12,8 @@ To use the Tradenity SDK, you must have:
 
 ## Installation
 
-The SDK is available through our maven repository, You can install it using any compatible tool.
+The SDK is available through maven central, You can install it using any compatible tool.
 
-```xml
-
-<repository>
-    <id>tradenity-public</id>
-    <name>tradenity-public-releases</name>
-    <url>http://artifacts.tradenity.com/artifactory/tradenity-release-public</url>
-</repository>
-
-```
 
 ### Maven
 
@@ -30,7 +21,7 @@ The SDK is available through our maven repository, You can install it using any 
 <dependency>
     <groupId>com.tradenity</groupId>
     <artifactId>java-sdk</artifactId>
-    <version>0.8.1</version>
+    <version>1.0.0</version>
 </dependency>
 
 ```
@@ -39,13 +30,13 @@ The SDK is available through our maven repository, You can install it using any 
 
 Add this line to the `dependency section`
 
-`compile com.tradenity:java-sdk:0.8.1`
+`compile com.tradenity:java-sdk:1.0.0`
 
 ### Ivy
 
 ```xml
 
-<dependency org="com.tradenity" name="java-sdk" rev="0.8.1"/>
+<dependency org="com.tradenity" name="java-sdk" rev="1.0.0"/>
 
 ```
 
@@ -84,6 +75,7 @@ Now, just call any method in your code.
 
 ```java
 
+BrandService brandService = new BrandService(client);
 Brand brand = brandService.findById("1243-9786786-jhgjtu-789s6i");
 
 ```

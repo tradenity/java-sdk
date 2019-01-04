@@ -1,39 +1,38 @@
 package com.tradenity.sdk.model;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Date;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 1:15 PM
- */
+
 public class Customer extends BaseModel{
 
-    public static final String STATUS_ACTIVE = "active";
-    public static final String STATUS_SUSPENDED = "suspended";
+    
+    public static final String STATUS_ENABLED = "enabled";
+    public static final String STATUS_DISABLED = "disabled";
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String username;
+    private String password;
+    private String status = "disabled";
+    private Photo photo;
+    private Address billingAddress;
+    private Address shippingAddress;
+    private Set<CustomerGroup> customerGroups = new LinkedHashSet<>();
 
-    String firstName;
-    String lastName;
-    String status;
-    String username;
-    String password;
-    String email;
-    Address shippingAddress;
-    Address billingAddress;
-
-    public Customer() {
+    public Customer(){
     }
-
-    public Customer(String firstName, String lastName, String email, String username, String password, String status) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.status = status;
-        this.email = email;
+    
+    public Customer id(String id) {
+        this.setId(id);
+        return this;
     }
-
     public String getFirstName() {
         return firstName;
     }
@@ -41,7 +40,11 @@ public class Customer extends BaseModel{
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    
+    public Customer firstName(String firstName) {
+        this.setFirstName(firstName);
+        return this;
+    }
     public String getLastName() {
         return lastName;
     }
@@ -49,15 +52,11 @@ public class Customer extends BaseModel{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public String getStatus() {
-        return status;
+    
+    public Customer lastName(String lastName) {
+        this.setLastName(lastName);
+        return this;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -65,23 +64,11 @@ public class Customer extends BaseModel{
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Address getShippingAddress() {
-        return shippingAddress;
+    
+    public Customer email(String email) {
+        this.setEmail(email);
+        return this;
     }
-
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    public Address getBillingAddress() {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(Address billingAddress) {
-        this.billingAddress = billingAddress;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -89,13 +76,85 @@ public class Customer extends BaseModel{
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
+    public Customer username(String username) {
+        this.setUsername(username);
+        return this;
+    }
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public Customer password(String password) {
+        this.setPassword(password);
+        return this;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public Customer status(String status) {
+        this.setStatus(status);
+        return this;
+    }
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+    
+    public Customer photo(Photo photo) {
+        this.setPhoto(photo);
+        return this;
+    }
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+    
+    public Customer billingAddress(Address billingAddress) {
+        this.setBillingAddress(billingAddress);
+        return this;
+    }
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+    
+    public Customer shippingAddress(Address shippingAddress) {
+        this.setShippingAddress(shippingAddress);
+        return this;
+    }
+    public Set<CustomerGroup> getCustomerGroups() {
+        if(customerGroups == null){
+            this.customerGroups = new LinkedHashSet<>();
+        }
+        return customerGroups;
+    }
+
+    public void setCustomerGroups(Set<CustomerGroup> customerGroups) {
+        this.customerGroups = customerGroups;
+    }
+    
+    public Customer customerGroups(Set<CustomerGroup> customerGroups) {
+        this.setCustomerGroups(customerGroups);
+        return this;
     }
 
 }

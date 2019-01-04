@@ -1,36 +1,17 @@
 package com.tradenity.sdk.exceptions;
 
-import com.tradenity.sdk.exceptions.messages.ErrorMessage;
 
-/**
- * Created by joseph
- * on 4/12/16.
- */
-public class ShoppingCartException extends RequestErrorException{
-    public ShoppingCartException() {
+public class ShoppingCartException extends ApplicationException{
+    public static final int INVALID_ITEM_ID = 1631;
+
+    static {
+        addError(INVALID_ITEM_ID,
+                "Invalid Item ID.",
+                "Shopping cart do not contain item with this ID.",
+                "Shopping cart do not contain item with this ID.");
     }
 
-    public ShoppingCartException(String message) {
-        super(message);
-    }
-
-    public ShoppingCartException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public ShoppingCartException(Throwable cause) {
-        super(cause);
-    }
-
-    public ShoppingCartException(ErrorMessage errorMessage) {
-        super(errorMessage);
-    }
-
-    public ShoppingCartException(ErrorMessage errorMessage, Throwable cause) {
-        super(errorMessage, cause);
-    }
-
-    public ShoppingCartException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public ShoppingCartException(int errorCode) {
+        super(errorCode);
     }
 }

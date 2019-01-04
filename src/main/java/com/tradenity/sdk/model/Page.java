@@ -1,14 +1,13 @@
 package com.tradenity.sdk.model;
 
+import com.tradenity.sdk.resources.PagedResourcesMetaInfo;
+import com.tradenity.sdk.resources.ResourcePage;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 3:06 PM
- */
+
 public class Page<T> implements Iterable<T>{
     int size;
     int totalElements;
@@ -21,7 +20,15 @@ public class Page<T> implements Iterable<T>{
         this.totalElements = info.getTotalElements();
         this.totalPages = info.getTotalPages();
         this.number = info.getNumber();
-        this.content = content;
+        if(content != null){
+            this.content = content;
+        }
+    }
+
+    public static<T> Page<T> create(ResourcePage<T> p) {
+        PagedResourcesMetaInfo metaInfo = p.getMetaInfo();
+        PageInfo pi = new PageInfo(metaInfo.getSize(), metaInfo.getTotalElements(), metaInfo.getTotalPages(), metaInfo.getNumber());
+        return new Page<>(pi, p.getItems());
     }
 
     public boolean isFirst(){

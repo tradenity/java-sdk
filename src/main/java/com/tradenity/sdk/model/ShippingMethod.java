@@ -1,39 +1,37 @@
 package com.tradenity.sdk.model;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Date;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 1:15 PM
- */
+
 public class ShippingMethod extends BaseModel{
+
+    
     public static final String STATUS_ENABLED = "enabled";
     public static final String STATUS_DISABLED = "disabled";
+    private String name;
+    private String slug;
+    private String message;
+    private String description;
+    private String status;
+    private Boolean useDiscountedSubtotal;
+    private Boolean includeTaxes;
+    private GeoZone geoZone;
+    private Set<CustomerGroup> customerGroups = new LinkedHashSet<>();
 
-    public static final String COST_TYPE_FIXED = "fixed";
-    public static final String COST_TYPE_PER_WEIGHT = "per_weight";
-    public static final String COST_TYPE_FIXED_AND_PER_WEIGHT = "fixed_and_per_weight";
-
-    public static final String WEIGHT_UNIT_OUNCE = "ounce";
-    public static final String WEIGHT_UNIT_POUND = "pound";
-    public static final String WEIGHT_UNIT_GRAM = "gram";
-    public static final String WEIGHT_UNIT_KILOGRAM = "kilogram";
-
-
-    String name;
-    String title;
-    String status;
-    String description;
-    String costType;
-    Float fixedRate;
-    Float costPerUnitWeight = 0.0F;
-    String weightUnit;
-
-    public ShippingMethod() {
+    public ShippingMethod(){
     }
-
+    
+    public ShippingMethod id(String id) {
+        this.setId(id);
+        return this;
+    }
     public String getName() {
         return name;
     }
@@ -41,23 +39,35 @@ public class ShippingMethod extends BaseModel{
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getTitle() {
-        return title;
+    
+    public ShippingMethod name(String name) {
+        this.setName(name);
+        return this;
+    }
+    public String getSlug() {
+        return slug;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+    
+    public ShippingMethod slug(String slug) {
+        this.setSlug(slug);
+        return this;
+    }
+    public String getMessage() {
+        return message;
     }
 
-    public String getStatus() {
-        return status;
+    public void setMessage(String message) {
+        this.message = message;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
+    
+    public ShippingMethod message(String message) {
+        this.setMessage(message);
+        return this;
     }
-
     public String getDescription() {
         return description;
     }
@@ -65,37 +75,73 @@ public class ShippingMethod extends BaseModel{
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getCostType() {
-        return costType;
+    
+    public ShippingMethod description(String description) {
+        this.setDescription(description);
+        return this;
+    }
+    public String getStatus() {
+        return status;
     }
 
-    public void setCostType(String costType) {
-        this.costType = costType;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public ShippingMethod status(String status) {
+        this.setStatus(status);
+        return this;
+    }
+    public Boolean getUseDiscountedSubtotal() {
+        return useDiscountedSubtotal;
     }
 
-    public Float getFixedRate() {
-        return fixedRate;
+    public void setUseDiscountedSubtotal(Boolean useDiscountedSubtotal) {
+        this.useDiscountedSubtotal = useDiscountedSubtotal;
+    }
+    
+    public ShippingMethod useDiscountedSubtotal(Boolean useDiscountedSubtotal) {
+        this.setUseDiscountedSubtotal(useDiscountedSubtotal);
+        return this;
+    }
+    public Boolean getIncludeTaxes() {
+        return includeTaxes;
     }
 
-    public void setFixedRate(Float fixedRate) {
-        this.fixedRate = fixedRate;
+    public void setIncludeTaxes(Boolean includeTaxes) {
+        this.includeTaxes = includeTaxes;
+    }
+    
+    public ShippingMethod includeTaxes(Boolean includeTaxes) {
+        this.setIncludeTaxes(includeTaxes);
+        return this;
+    }
+    public GeoZone getGeoZone() {
+        return geoZone;
     }
 
-    public Float getCostPerUnitWeight() {
-        return costPerUnitWeight;
+    public void setGeoZone(GeoZone geoZone) {
+        this.geoZone = geoZone;
+    }
+    
+    public ShippingMethod geoZone(GeoZone geoZone) {
+        this.setGeoZone(geoZone);
+        return this;
+    }
+    public Set<CustomerGroup> getCustomerGroups() {
+        if(customerGroups == null){
+            this.customerGroups = new LinkedHashSet<>();
+        }
+        return customerGroups;
     }
 
-    public void setCostPerUnitWeight(Float costPerUnitWeight) {
-        this.costPerUnitWeight = costPerUnitWeight;
+    public void setCustomerGroups(Set<CustomerGroup> customerGroups) {
+        this.customerGroups = customerGroups;
     }
-
-    public String getWeightUnit() {
-        return weightUnit;
-    }
-
-    public void setWeightUnit(String weightUnit) {
-        this.weightUnit = weightUnit;
+    
+    public ShippingMethod customerGroups(Set<CustomerGroup> customerGroups) {
+        this.setCustomerGroups(customerGroups);
+        return this;
     }
 
 }

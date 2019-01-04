@@ -8,23 +8,16 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 1:43 PM
- */
 public class ApiInterceptor implements Interceptor {
 
     public static final String AUTH_TOKEN_HEADER_NAME = "X-Tradenity-Session-ID";
     String apiKey;
     SessionTokenStore tokenStore;
 
-
     public ApiInterceptor(String apiKey, SessionTokenStore tokenStore) {
         this.apiKey = apiKey;
         this.tokenStore = tokenStore;
     }
-
 
     public Response intercept(Chain chain) throws IOException {
         Request original = chain.request();

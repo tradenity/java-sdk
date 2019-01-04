@@ -2,9 +2,7 @@ package com.tradenity.sdk.services;
 
 
 import com.tradenity.sdk.client.TradenityClient;
-import com.tradenity.sdk.model.Collection;
-import com.tradenity.sdk.model.Page;
-import com.tradenity.sdk.model.PageRequest;
+import com.tradenity.sdk.model.*;
 import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.CollectionResource;
 import retrofit2.Call;
@@ -14,18 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 3:06 PM
- */
 public class CollectionService extends AbstractService{
 
     CollectionResource collectionResource;
 
     public CollectionService(TradenityClient client) {
-        super(client, "collections");
+        super(client);
     }
 
     protected CollectionResource getCollectionResource(){
@@ -35,24 +27,9 @@ public class CollectionService extends AbstractService{
         return collectionResource;
     }
 
-    public Page<Collection> findAll(){
-        return findAll(new PageRequest());
-    }
-
     public Page<Collection> findAll(PageRequest pageRequest){
         Call<ResourcePage<Collection>> call =  getCollectionResource().index(pageRequest.asMap());
         return createPage(call);
-    }
-    public Page<Collection> search(Collection collection){
-        return search(collection, new PageRequest());
-    }
-
-    public Page<Collection> search(Collection collection, PageRequest pageRequest){
-        return search(notNullMap(toMap(collection)), pageRequest);
-    }
-
-    public Page<Collection> search(Map<String, Object> fields){
-        return search(fields, new PageRequest());
     }
 
     public Page<Collection> search(Map<String, Object> fields, PageRequest pageRequest){
@@ -60,12 +37,45 @@ public class CollectionService extends AbstractService{
         if(pageRequest != null) {
             params.putAll(pageRequest.asMap());
         }
+
         Call<ResourcePage<Collection>> call =  getCollectionResource().index(fields);
         return createPage(call);
     }
 
-    public Collection findByName(String name){
-        return findOne(Collections.<String, Object>singletonMap("name", name));
+    public Collection findBy(String attribute, String value){
+        return findOne(Collections.<String, Object>singletonMap(attribute, value));
+    }
+
+    public Collection findBy(String attribute, BaseModel model){
+        return findBy(attribute, model.getId());
+    }
+
+    public Page<Collection> findAll(){
+        return findAll(new PageRequest());
+    }
+
+    public Page<Collection> findAllBy(String attribute, String value){
+        return search(attribute, value);
+    }
+
+    public Page<Collection> findAllBy(String attribute, BaseModel model){
+        return findAllBy(attribute, model.getId());
+    }
+
+    public Page<Collection> findAllBy(String attribute, String value, PageRequest pageRequest){
+        return search(Collections.<String, Object>singletonMap(attribute, value), pageRequest);
+    }
+
+    public Page<Collection> findAllBy(String attribute, BaseModel model, PageRequest pageRequest){
+        return findAllBy(attribute, model.getId(), pageRequest);
+    }
+
+    public Page<Collection> search(String attribute, Object value){
+        return search(Collections.singletonMap(attribute, value), new PageRequest());
+    }
+
+    public Page<Collection> search(Map<String, Object> fields){
+        return search(fields, new PageRequest());
     }
 
     public Collection findOne(Map<String, Object> fields){
@@ -83,12 +93,17 @@ public class CollectionService extends AbstractService{
     }
 
     public Collection create(Collection collection){
-        Call<Collection> call =  getCollectionResource().save(toMap(collection));
+        Call<Collection> call =  getCollectionResource().save(collection);
         return createInstance(call);
     }
 
     public Collection update(Collection collection){
-        Call<Collection> call =  getCollectionResource().update(collection.getId(), toMap(collection));
+        Call<Collection> call =  getCollectionResource().update(collection.getId(), collection);
+        return createInstance(call);
+    }
+
+    public Collection replace(Collection collection){
+        Call<Collection> call =  getCollectionResource().replace(collection.getId(), collection);
         return createInstance(call);
     }
 
@@ -100,14 +115,4 @@ public class CollectionService extends AbstractService{
     public void delete(Collection collection){
         delete(collection.getId());
     }
-
-    private Map<String, Object> toMap(Collection collection) {
-        Map<String, Object> m = new HashMap<>();
-        m.put("name", collection.getName());
-        m.put("title", collection.getTitle());
-        m.put("status", collection.getStatus());
-        m.put("description", collection.getDescription());
-        return m;
-    }
-
 }

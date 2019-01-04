@@ -1,9 +1,6 @@
 package com.tradenity.sdk.client;
 
-/**
- * Created by joseph
- * on 1/13/16.
- */
+
 public class SingleUserTokenStore implements SessionTokenStore{
     String authToken;
 

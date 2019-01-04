@@ -1,25 +1,33 @@
 package com.tradenity.sdk.model;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Date;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 1:15 PM
- */
+
 public class Collection extends BaseModel{
 
+    
     public static final String STATUS_ENABLED = "enabled";
     public static final String STATUS_DISABLED = "disabled";
+    private String name;
+    private String slug;
+    private String status;
+    private String description;
+    private List<Product> products = new ArrayList<>();
 
-    String name;
-    String title;
-    String status;
-    String description;
-    List<Product>products;
-
+    public Collection(){
+    }
+    
+    public Collection id(String id) {
+        this.setId(id);
+        return this;
+    }
     public String getName() {
         return name;
     }
@@ -27,15 +35,23 @@ public class Collection extends BaseModel{
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getTitle() {
-        return title;
+    
+    public Collection name(String name) {
+        this.setName(name);
+        return this;
+    }
+    public String getSlug() {
+        return slug;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
-
+    
+    public Collection slug(String slug) {
+        this.setSlug(slug);
+        return this;
+    }
     public String getStatus() {
         return status;
     }
@@ -43,7 +59,11 @@ public class Collection extends BaseModel{
     public void setStatus(String status) {
         this.status = status;
     }
-
+    
+    public Collection status(String status) {
+        this.setStatus(status);
+        return this;
+    }
     public String getDescription() {
         return description;
     }
@@ -51,13 +71,25 @@ public class Collection extends BaseModel{
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
+    public Collection description(String description) {
+        this.setDescription(description);
+        return this;
+    }
     public List<Product> getProducts() {
+        if(products == null){
+            this.products = new ArrayList<>();
+        }
         return products;
     }
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+    
+    public Collection products(List<Product> products) {
+        this.setProducts(products);
+        return this;
     }
 
 }

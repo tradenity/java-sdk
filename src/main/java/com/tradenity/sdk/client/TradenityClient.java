@@ -1,12 +1,7 @@
 package com.tradenity.sdk.client;
 
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 6:41 PM
- */
 public class TradenityClient {
-    public String API_BASE_URL = "https://api.tradenity.com/v1/";
+    public String API_BASE_URL = "https://api.Tradenity.com/v1/";
 
     protected String apiKey = null;
     SessionTokenStore sessionTokenStore;

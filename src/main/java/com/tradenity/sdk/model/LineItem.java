@@ -1,31 +1,120 @@
 package com.tradenity.sdk.model;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Date;
 
-/**
- * User: Joseph Fouad
- * Date: 11/4/2015
- * Time: 10:50 PM
- */
+
 public class LineItem extends BaseModel{
 
-    Product product;
-    int quantity;
-    float unitPrice;
-    float total;
-    float subtotal;
-    float taxes;
-    float shippingCost;
+    
+    private Integer unitPrice = 0;
+    private Integer quantity = 0;
+    private Integer subtotal = 0;
+    private Integer total = 0;
+    private Integer shippingAmount = 0;
+    private Integer taxAmount = 0;
+    private Integer discountAmount = 0;
+    private Product product;
+    private Set<TaxRate> taxes = new LinkedHashSet<>();
+    private Set<Promotion> promotions = new LinkedHashSet<>();
 
-    public LineItem() {
+    public LineItem(){
+    }
+    
+    public LineItem id(String id) {
+        this.setId(id);
+        return this;
+    }
+    public Integer getUnitPrice() {
+        return unitPrice;
     }
 
-    public LineItem(String itemId, Integer quantity) {
-        this.id = itemId;
+    public void setUnitPrice(Integer unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+    
+    public LineItem unitPrice(Integer unitPrice) {
+        this.setUnitPrice(unitPrice);
+        return this;
+    }
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+    
+    public LineItem quantity(Integer quantity) {
+        this.setQuantity(quantity);
+        return this;
+    }
+    public Integer getSubtotal() {
+        return subtotal;
+    }
 
+    public void setSubtotal(Integer subtotal) {
+        this.subtotal = subtotal;
+    }
+    
+    public LineItem subtotal(Integer subtotal) {
+        this.setSubtotal(subtotal);
+        return this;
+    }
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+    
+    public LineItem total(Integer total) {
+        this.setTotal(total);
+        return this;
+    }
+    public Integer getShippingAmount() {
+        return shippingAmount;
+    }
+
+    public void setShippingAmount(Integer shippingAmount) {
+        this.shippingAmount = shippingAmount;
+    }
+    
+    public LineItem shippingAmount(Integer shippingAmount) {
+        this.setShippingAmount(shippingAmount);
+        return this;
+    }
+    public Integer getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(Integer taxAmount) {
+        this.taxAmount = taxAmount;
+    }
+    
+    public LineItem taxAmount(Integer taxAmount) {
+        this.setTaxAmount(taxAmount);
+        return this;
+    }
+    public Integer getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(Integer discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+    
+    public LineItem discountAmount(Integer discountAmount) {
+        this.setDiscountAmount(discountAmount);
+        return this;
+    }
     public Product getProduct() {
         return product;
     }
@@ -33,64 +122,40 @@ public class LineItem extends BaseModel{
     public void setProduct(Product product) {
         this.product = product;
     }
-
-    public int getQuantity() {
-        return quantity;
+    
+    public LineItem product(Product product) {
+        this.setProduct(product);
+        return this;
     }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public float getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(float unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public float getTotal() {
-        return total;
-    }
-
-    public void setTotal(float total) {
-        this.total = total;
-    }
-
-    public float getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(float subtotal) {
-        this.subtotal = subtotal;
-    }
-
-    public float getTaxes() {
+    public Set<TaxRate> getTaxes() {
+        if(taxes == null){
+            this.taxes = new LinkedHashSet<>();
+        }
         return taxes;
     }
 
-    public void setTaxes(float taxes) {
+    public void setTaxes(Set<TaxRate> taxes) {
         this.taxes = taxes;
     }
-
-    public float getShippingCost() {
-        return shippingCost;
+    
+    public LineItem taxes(Set<TaxRate> taxes) {
+        this.setTaxes(taxes);
+        return this;
     }
-
-    public void setShippingCost(float shippingCost) {
-        this.shippingCost = shippingCost;
-    }
-
-    public Map<String, Object> toMap() {
-        Map<String, Object> m = new HashMap<>();
-        if(this.getId() != null) {
-            m.put("id", this.getId());
+    public Set<Promotion> getPromotions() {
+        if(promotions == null){
+            this.promotions = new LinkedHashSet<>();
         }
-        if(this.getProduct() != null) {
-            m.put("product", this.getProduct().getId());
-        }
-        m.put("quantity", this.getQuantity());
-        return m;
+        return promotions;
     }
+
+    public void setPromotions(Set<Promotion> promotions) {
+        this.promotions = promotions;
+    }
+    
+    public LineItem promotions(Set<Promotion> promotions) {
+        this.setPromotions(promotions);
+        return this;
+    }
+
 }

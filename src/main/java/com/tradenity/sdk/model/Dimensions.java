@@ -1,36 +1,29 @@
 package com.tradenity.sdk.model;
 
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Date;
 
-/**
- * Created by joseph
- * on 7/15/16.
- */
-public class Dimensions implements Serializable{
-    public static final String UNIT_CENTIMETER = "centimeter";
-    public static final String UNIT_METER = "meter";
+
+public class Dimensions {
+
+    
+    public static final String UNIT_CM = "cm";
     public static final String UNIT_INCH = "inch";
-    public static final String UNIT_FEET = "feet";
+    public static final String UNIT_FOOT = "foot";
+    private Float width;
+    private Float height;
+    private Float depth;
+    private String unit;
 
-
-    String unit;
-    Float width;
-    Float height;
-    Float depth;
-
-    public Dimensions() {
+    public Dimensions(){
     }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
+    
     public Float getWidth() {
         return width;
     }
@@ -38,7 +31,11 @@ public class Dimensions implements Serializable{
     public void setWidth(Float width) {
         this.width = width;
     }
-
+    
+    public Dimensions width(Float width) {
+        this.setWidth(width);
+        return this;
+    }
     public Float getHeight() {
         return height;
     }
@@ -46,7 +43,11 @@ public class Dimensions implements Serializable{
     public void setHeight(Float height) {
         this.height = height;
     }
-
+    
+    public Dimensions height(Float height) {
+        this.setHeight(height);
+        return this;
+    }
     public Float getDepth() {
         return depth;
     }
@@ -54,13 +55,22 @@ public class Dimensions implements Serializable{
     public void setDepth(Float depth) {
         this.depth = depth;
     }
-
-    public Map<String, Object> toMap() {
-        Map<String, Object> m = new HashMap<>();
-        m.put("unit", this.getUnit());
-        m.put("width", this.getWidth());
-        m.put("height", this.getHeight());
-        m.put("depth", this.getDepth());
-        return m;
+    
+    public Dimensions depth(Float depth) {
+        this.setDepth(depth);
+        return this;
     }
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+    
+    public Dimensions unit(String unit) {
+        this.setUnit(unit);
+        return this;
+    }
+
 }

@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by joseph
- * on 1/13/16.
- */
+
 public class PageRequest implements Serializable{
     int pageNumber;
     int pageSize;

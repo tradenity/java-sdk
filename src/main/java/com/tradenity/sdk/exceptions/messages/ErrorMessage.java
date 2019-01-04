@@ -4,16 +4,15 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by joseph
- * on 4/12/16.
- */
+
 public class ErrorMessage implements Serializable{
     int status = 0;
     int errorCode = 0;
+
     String error;
     String timestamp;
     String message;
+
     Map<String, String> details = new HashMap<>();
     Map<String, String> fieldErrors = new HashMap<>();
 

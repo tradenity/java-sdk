@@ -3,24 +3,23 @@ package com.tradenity.sdk.services;
 
 import com.tradenity.sdk.client.TradenityClient;
 import com.tradenity.sdk.model.*;
-import com.tradenity.sdk.resources.GatewayResource;
 import com.tradenity.sdk.resources.ResourcePage;
+import com.tradenity.sdk.resources.GatewayResource;
 import retrofit2.Call;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 3:06 PM
- */
 public class GatewayService extends AbstractService{
+
     GatewayResource gatewayResource;
+
     public GatewayService(TradenityClient client) {
-        super(client, "gateways");
+        super(client);
     }
+
     protected GatewayResource getGatewayResource(){
         if(gatewayResource == null) {
             gatewayResource = resourceFactory.create(GatewayResource.class);
@@ -28,25 +27,9 @@ public class GatewayService extends AbstractService{
         return gatewayResource;
     }
 
-    public Page<Gateway> findAll(){
-        return findAll(new PageRequest());
-    }
-
     public Page<Gateway> findAll(PageRequest pageRequest){
         Call<ResourcePage<Gateway>> call =  getGatewayResource().index(pageRequest.asMap());
         return createPage(call);
-    }
-
-    public Page<Gateway> search(Gateway gateway){
-        return search(gateway, new PageRequest());
-    }
-
-    public Page<Gateway> search(Gateway gateway, PageRequest pageRequest){
-        return search(notNullMap(toMap(gateway)), pageRequest);
-    }
-
-    public Page<Gateway> search(Map<String, Object> fields){
-        return search(fields, new PageRequest());
     }
 
     public Page<Gateway> search(Map<String, Object> fields, PageRequest pageRequest){
@@ -54,46 +37,53 @@ public class GatewayService extends AbstractService{
         if(pageRequest != null) {
             params.putAll(pageRequest.asMap());
         }
+
         Call<ResourcePage<Gateway>> call =  getGatewayResource().index(fields);
         return createPage(call);
     }
 
-    public Gateway findById(String id){
-        Call<Gateway> call =  getGatewayResource().findById(id);
-        return createInstance(call);
+    public Gateway findBy(String attribute, String value){
+        return findOne(Collections.<String, Object>singletonMap(attribute, value));
     }
 
-    public Gateway create(Gateway gateway){
-        Call<Gateway> call =  getGatewayResource().save(toMap(gateway));
-        return createInstance(call);
+    public Gateway findBy(String attribute, BaseModel model){
+        return findBy(attribute, model.getId());
     }
 
-    public Gateway update(Gateway gateway){
-        Call<Gateway> call =  getGatewayResource().update(gateway.getId(), toMap(gateway));
-        return createInstance(call);
+    public Page<Gateway> findAll(){
+        return findAll(new PageRequest());
     }
 
-    public void delete(String id){
-        Call<Void> call =  getGatewayResource().delete(id);
-        run(call);
+    public Page<Gateway> findAllBy(String attribute, String value){
+        return search(attribute, value);
     }
 
-    public void delete(Gateway gateway){
-        delete(gateway.getId());
+    public Page<Gateway> findAllBy(String attribute, BaseModel model){
+        return findAllBy(attribute, model.getId());
     }
 
-    public Map<String, Object> toMap(Gateway gateway) {
-        Map<String, Object> m = new HashMap<>();
-        m.put("name", gateway.getName());
-        m.put("title", gateway.getTitle());
-        m.put("status", gateway.getStatus());
-        m.put("description", gateway.getDescription());
-        m.put("mode", gateway.getMode());
-        m.put("accountId", gateway.getAccountId());
-        m.put("secretKey", gateway.getSecretKey());
-        m.put("publicKey", gateway.getPublicKey());
-        m.put("testSecretKey", gateway.getTestSecretKey());
-        m.put("testPublicKey", gateway.getTestPublicKey());
-        return m;
+    public Page<Gateway> findAllBy(String attribute, String value, PageRequest pageRequest){
+        return search(Collections.<String, Object>singletonMap(attribute, value), pageRequest);
+    }
+
+    public Page<Gateway> findAllBy(String attribute, BaseModel model, PageRequest pageRequest){
+        return findAllBy(attribute, model.getId(), pageRequest);
+    }
+
+    public Page<Gateway> search(String attribute, Object value){
+        return search(Collections.singletonMap(attribute, value), new PageRequest());
+    }
+
+    public Page<Gateway> search(Map<String, Object> fields){
+        return search(fields, new PageRequest());
+    }
+
+    public Gateway findOne(Map<String, Object> fields){
+        List<Gateway> content = search(fields).getContent();
+        if(content != null && content.size() > 0) {
+            return content.get(0);
+        }else{
+            return null;
+        }
     }
 }

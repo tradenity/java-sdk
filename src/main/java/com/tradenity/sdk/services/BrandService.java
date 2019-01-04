@@ -2,9 +2,7 @@ package com.tradenity.sdk.services;
 
 
 import com.tradenity.sdk.client.TradenityClient;
-import com.tradenity.sdk.model.Brand;
-import com.tradenity.sdk.model.Page;
-import com.tradenity.sdk.model.PageRequest;
+import com.tradenity.sdk.model.*;
 import com.tradenity.sdk.resources.ResourcePage;
 import com.tradenity.sdk.resources.BrandResource;
 import retrofit2.Call;
@@ -14,18 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-/**
- * User: Joseph Fouad
- * Date: 10/23/2015
- * Time: 3:06 PM
- */
 public class BrandService extends AbstractService{
 
     BrandResource brandResource;
 
     public BrandService(TradenityClient client) {
-        super(client, "brands");
+        super(client);
     }
 
     protected BrandResource getBrandResource(){
@@ -35,25 +27,9 @@ public class BrandService extends AbstractService{
         return brandResource;
     }
 
-    public Page<Brand> findAll(){
-        return findAll(new PageRequest());
-    }
-
     public Page<Brand> findAll(PageRequest pageRequest){
         Call<ResourcePage<Brand>> call =  getBrandResource().index(pageRequest.asMap());
         return createPage(call);
-    }
-
-    public Page<Brand> search(Brand brand){
-        return search(brand, new PageRequest());
-    }
-
-    public Page<Brand> search(Brand brand, PageRequest pageRequest){
-        return search(notNullMap(toMap(brand)), pageRequest);
-    }
-
-    public Page<Brand> search(Map<String, Object> fields){
-        return search(fields, new PageRequest());
     }
 
     public Page<Brand> search(Map<String, Object> fields, PageRequest pageRequest){
@@ -66,6 +42,42 @@ public class BrandService extends AbstractService{
         return createPage(call);
     }
 
+    public Brand findBy(String attribute, String value){
+        return findOne(Collections.<String, Object>singletonMap(attribute, value));
+    }
+
+    public Brand findBy(String attribute, BaseModel model){
+        return findBy(attribute, model.getId());
+    }
+
+    public Page<Brand> findAll(){
+        return findAll(new PageRequest());
+    }
+
+    public Page<Brand> findAllBy(String attribute, String value){
+        return search(attribute, value);
+    }
+
+    public Page<Brand> findAllBy(String attribute, BaseModel model){
+        return findAllBy(attribute, model.getId());
+    }
+
+    public Page<Brand> findAllBy(String attribute, String value, PageRequest pageRequest){
+        return search(Collections.<String, Object>singletonMap(attribute, value), pageRequest);
+    }
+
+    public Page<Brand> findAllBy(String attribute, BaseModel model, PageRequest pageRequest){
+        return findAllBy(attribute, model.getId(), pageRequest);
+    }
+
+    public Page<Brand> search(String attribute, Object value){
+        return search(Collections.singletonMap(attribute, value), new PageRequest());
+    }
+
+    public Page<Brand> search(Map<String, Object> fields){
+        return search(fields, new PageRequest());
+    }
+
     public Brand findOne(Map<String, Object> fields){
         List<Brand> content = search(fields).getContent();
         if(content != null && content.size() > 0) {
@@ -75,22 +87,23 @@ public class BrandService extends AbstractService{
         }
     }
 
-    public Brand findByName(String name){
-        return findOne(Collections.<String, Object>singletonMap("name", name));
-    }
-
     public Brand findById(String id){
         Call<Brand> call =  getBrandResource().findOne(id);
         return createInstance(call);
     }
 
     public Brand create(Brand brand){
-        Call<Brand> call =  getBrandResource().save(toMap(brand));
+        Call<Brand> call =  getBrandResource().save(brand);
         return createInstance(call);
     }
 
     public Brand update(Brand brand){
-        Call<Brand> call =  getBrandResource().update(brand.getId(), toMap(brand));
+        Call<Brand> call =  getBrandResource().update(brand.getId(), brand);
+        return createInstance(call);
+    }
+
+    public Brand replace(Brand brand){
+        Call<Brand> call =  getBrandResource().replace(brand.getId(), brand);
         return createInstance(call);
     }
 
@@ -101,14 +114,5 @@ public class BrandService extends AbstractService{
 
     public void delete(Brand brand){
         delete(brand.getId());
-    }
-
-    private Map<String, Object> toMap(Brand brand) {
-        Map<String, Object> m = new HashMap<>();
-        m.put("name", brand.getName());
-        m.put("title", brand.getTitle());
-        m.put("status", brand.getStatus());
-        m.put("description", brand.getDescription());
-        return m;
     }
 }
