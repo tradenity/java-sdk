@@ -38,7 +38,7 @@ public class RefundOperationService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<RefundOperation>> call =  getRefundOperationResource().index(fields);
+        Call<ResourcePage<RefundOperation>> call =  getRefundOperationResource().index(params);
         return createPage(call);
     }
 

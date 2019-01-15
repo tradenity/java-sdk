@@ -38,7 +38,7 @@ public class DiscountPromotionService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<DiscountPromotion>> call =  getDiscountPromotionResource().index(fields);
+        Call<ResourcePage<DiscountPromotion>> call =  getDiscountPromotionResource().index(params);
         return createPage(call);
     }
 

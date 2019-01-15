@@ -38,7 +38,7 @@ public class OrderService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Order>> call =  getOrderResource().index(fields);
+        Call<ResourcePage<Order>> call =  getOrderResource().index(params);
         return createPage(call);
     }
 

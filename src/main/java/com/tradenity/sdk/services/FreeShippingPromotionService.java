@@ -38,7 +38,7 @@ public class FreeShippingPromotionService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<FreeShippingPromotion>> call =  getFreeShippingPromotionResource().index(fields);
+        Call<ResourcePage<FreeShippingPromotion>> call =  getFreeShippingPromotionResource().index(params);
         return createPage(call);
     }
 

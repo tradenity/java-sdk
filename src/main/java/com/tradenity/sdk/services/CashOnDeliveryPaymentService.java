@@ -38,7 +38,7 @@ public class CashOnDeliveryPaymentService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<CashOnDeliveryPayment>> call =  getCashOnDeliveryPaymentResource().index(fields);
+        Call<ResourcePage<CashOnDeliveryPayment>> call =  getCashOnDeliveryPaymentResource().index(params);
         return createPage(call);
     }
 

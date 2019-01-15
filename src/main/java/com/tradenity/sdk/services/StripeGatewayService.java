@@ -38,7 +38,7 @@ public class StripeGatewayService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<StripeGateway>> call =  getStripeGatewayResource().index(fields);
+        Call<ResourcePage<StripeGateway>> call =  getStripeGatewayResource().index(params);
         return createPage(call);
     }
 

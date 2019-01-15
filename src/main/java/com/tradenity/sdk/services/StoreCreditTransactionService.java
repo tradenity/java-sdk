@@ -38,7 +38,7 @@ public class StoreCreditTransactionService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<StoreCreditTransaction>> call =  getStoreCreditTransactionResource().index(fields);
+        Call<ResourcePage<StoreCreditTransaction>> call =  getStoreCreditTransactionResource().index(params);
         return createPage(call);
     }
 

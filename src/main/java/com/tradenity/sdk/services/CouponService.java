@@ -38,7 +38,7 @@ public class CouponService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Coupon>> call =  getCouponResource().index(fields);
+        Call<ResourcePage<Coupon>> call =  getCouponResource().index(params);
         return createPage(call);
     }
 

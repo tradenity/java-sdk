@@ -38,7 +38,7 @@ public class StoreCreditService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<StoreCredit>> call =  getStoreCreditResource().index(fields);
+        Call<ResourcePage<StoreCredit>> call =  getStoreCreditResource().index(params);
         return createPage(call);
     }
 

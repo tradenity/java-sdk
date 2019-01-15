@@ -38,7 +38,7 @@ public class OrderLineItemService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<OrderLineItem>> call =  getOrderLineItemResource().index(fields);
+        Call<ResourcePage<OrderLineItem>> call =  getOrderLineItemResource().index(params);
         return createPage(call);
     }
 

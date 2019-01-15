@@ -38,7 +38,7 @@ public class ReturnOperationService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<ReturnOperation>> call =  getReturnOperationResource().index(fields);
+        Call<ResourcePage<ReturnOperation>> call =  getReturnOperationResource().index(params);
         return createPage(call);
     }
 

@@ -38,7 +38,7 @@ public class CountryService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Country>> call =  getCountryResource().index(fields);
+        Call<ResourcePage<Country>> call =  getCountryResource().index(params);
         return createPage(call);
     }
 

@@ -38,7 +38,7 @@ public class OptionService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Option>> call =  getOptionResource().index(fields);
+        Call<ResourcePage<Option>> call =  getOptionResource().index(params);
         return createPage(call);
     }
 

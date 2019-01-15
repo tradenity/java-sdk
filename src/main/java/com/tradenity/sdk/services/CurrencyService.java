@@ -38,7 +38,7 @@ public class CurrencyService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Currency>> call =  getCurrencyResource().index(fields);
+        Call<ResourcePage<Currency>> call =  getCurrencyResource().index(params);
         return createPage(call);
     }
 

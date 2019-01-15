@@ -38,7 +38,7 @@ public class PaymentCardService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<PaymentCard>> call =  getPaymentCardResource().index(fields);
+        Call<ResourcePage<PaymentCard>> call =  getPaymentCardResource().index(params);
         return createPage(call);
     }
 

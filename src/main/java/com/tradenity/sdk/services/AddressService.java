@@ -38,7 +38,7 @@ public class AddressService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Address>> call =  getAddressResource().index(fields);
+        Call<ResourcePage<Address>> call =  getAddressResource().index(params);
         return createPage(call);
     }
 

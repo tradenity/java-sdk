@@ -38,7 +38,7 @@ public class CollectionService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Collection>> call =  getCollectionResource().index(fields);
+        Call<ResourcePage<Collection>> call =  getCollectionResource().index(params);
         return createPage(call);
     }
 

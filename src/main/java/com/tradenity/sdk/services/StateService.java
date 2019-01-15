@@ -38,7 +38,7 @@ public class StateService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<State>> call =  getStateResource().index(fields);
+        Call<ResourcePage<State>> call =  getStateResource().index(params);
         return createPage(call);
     }
 

@@ -38,7 +38,7 @@ public class StatesGeoZoneService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<StatesGeoZone>> call =  getStatesGeoZoneResource().index(fields);
+        Call<ResourcePage<StatesGeoZone>> call =  getStatesGeoZoneResource().index(params);
         return createPage(call);
     }
 

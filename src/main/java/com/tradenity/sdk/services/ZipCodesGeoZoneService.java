@@ -38,7 +38,7 @@ public class ZipCodesGeoZoneService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<ZipCodesGeoZone>> call =  getZipCodesGeoZoneResource().index(fields);
+        Call<ResourcePage<ZipCodesGeoZone>> call =  getZipCodesGeoZoneResource().index(params);
         return createPage(call);
     }
 

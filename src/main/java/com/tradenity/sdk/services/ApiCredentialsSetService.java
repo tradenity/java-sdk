@@ -38,7 +38,7 @@ public class ApiCredentialsSetService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<ApiCredentialsSet>> call =  getApiCredentialsSetResource().index(fields);
+        Call<ResourcePage<ApiCredentialsSet>> call =  getApiCredentialsSetResource().index(params);
         return createPage(call);
     }
 

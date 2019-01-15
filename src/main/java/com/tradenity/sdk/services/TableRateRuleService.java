@@ -38,7 +38,7 @@ public class TableRateRuleService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<TableRateRule>> call =  getTableRateRuleResource().index(fields);
+        Call<ResourcePage<TableRateRule>> call =  getTableRateRuleResource().index(params);
         return createPage(call);
     }
 

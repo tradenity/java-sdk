@@ -38,7 +38,7 @@ public class BraintreeGatewayService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<BraintreeGateway>> call =  getBraintreeGatewayResource().index(fields);
+        Call<ResourcePage<BraintreeGateway>> call =  getBraintreeGatewayResource().index(params);
         return createPage(call);
     }
 

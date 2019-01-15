@@ -10,8 +10,9 @@ import java.util.Map;
 
 
 public class ResourcePage<T> {
-    //@SerializedName(value = "content", alternate = {"stores", "currencies", "states", "countries", "addresses", "brands", "categories", "photos", "options", "optionValues", "optionSets", "products", "variants", "collections", "itemsSelectors", "promotions", "discountPromotions", "freeShippingPromotions", "coupons", "discountCoupons", "freeShippingCoupons", "freeItemCoupons", "customerGroups", "customers", "wishLists", "gateways", "testGateways", "stripeGateways", "braintreeGateways", "shippingMethods", "freeShippings", "fixedRateShippings", "tableRateShippings", "tableRateRules", "orders", "lineItems", "orderLineItems", "returnLineItems", "paymentSources", "paymentCards", "paymentTokens", "payments", "creditCardPayments", "cashOnDeliveryPayments", "storeCreditPayments", "transactions", "paymentTransactions", "refundTransactions", "storeCreditTransactions", "storeCredits", "webHooks", "storeProfiles", "storeSettings", "plans", "subscriptions", "refundOperations", "cancelOperations", "returnOperations", "geoZones", "countriesGeoZones", "statesGeoZones", "zipCodesGeoZones", "taxClasses", "taxRates", "users", "roles", "apiCredentialsSets", "accounts", "userTokens", "profiles", "storageFiles" })
+
     List<T> items;
+
     @SerializedName("__meta")
     PagedResourcesMetaInfo metaInfo;
 

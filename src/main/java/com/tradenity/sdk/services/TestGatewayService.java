@@ -38,7 +38,7 @@ public class TestGatewayService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<TestGateway>> call =  getTestGatewayResource().index(fields);
+        Call<ResourcePage<TestGateway>> call =  getTestGatewayResource().index(params);
         return createPage(call);
     }
 

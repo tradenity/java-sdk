@@ -38,7 +38,7 @@ public class BrandService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Brand>> call =  getBrandResource().index(fields);
+        Call<ResourcePage<Brand>> call =  getBrandResource().index(params);
         return createPage(call);
     }
 

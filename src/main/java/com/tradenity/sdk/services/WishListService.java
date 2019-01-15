@@ -38,7 +38,7 @@ public class WishListService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<WishList>> call =  getWishListResource().index(fields);
+        Call<ResourcePage<WishList>> call =  getWishListResource().index(params);
         return createPage(call);
     }
 

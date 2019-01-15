@@ -38,7 +38,7 @@ public class TaxRateService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<TaxRate>> call =  getTaxRateResource().index(fields);
+        Call<ResourcePage<TaxRate>> call =  getTaxRateResource().index(params);
         return createPage(call);
     }
 

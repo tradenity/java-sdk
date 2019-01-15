@@ -38,7 +38,7 @@ public class FixedRateShippingService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<FixedRateShipping>> call =  getFixedRateShippingResource().index(fields);
+        Call<ResourcePage<FixedRateShipping>> call =  getFixedRateShippingResource().index(params);
         return createPage(call);
     }
 

@@ -38,7 +38,7 @@ public class ShippingMethodService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<ShippingMethod>> call =  getShippingMethodResource().index(fields);
+        Call<ResourcePage<ShippingMethod>> call =  getShippingMethodResource().index(params);
         return createPage(call);
     }
 

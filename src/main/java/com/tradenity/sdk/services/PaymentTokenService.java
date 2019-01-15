@@ -38,7 +38,7 @@ public class PaymentTokenService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<PaymentToken>> call =  getPaymentTokenResource().index(fields);
+        Call<ResourcePage<PaymentToken>> call =  getPaymentTokenResource().index(params);
         return createPage(call);
     }
 

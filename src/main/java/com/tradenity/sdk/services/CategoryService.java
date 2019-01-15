@@ -38,7 +38,7 @@ public class CategoryService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Category>> call =  getCategoryResource().index(fields);
+        Call<ResourcePage<Category>> call =  getCategoryResource().index(params);
         return createPage(call);
     }
 

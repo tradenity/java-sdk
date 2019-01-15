@@ -38,7 +38,7 @@ public class GatewayService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Gateway>> call =  getGatewayResource().index(fields);
+        Call<ResourcePage<Gateway>> call =  getGatewayResource().index(params);
         return createPage(call);
     }
 

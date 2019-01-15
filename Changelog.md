@@ -1,5 +1,10 @@
 ## Changelog
 
+Version 1.0.1
+- Feature: Add 'Sort' class to allow for search result sorting.
+- Bug fix: add 'PageRequest' parameters to missing requests. 
+- Task: upgrade dependencies to avoid security vulnerabilities.
+
 Version 1.0.0
 - Cover all the resources of Tradenity V1 API
 - Changed to the new exchange format (json body)

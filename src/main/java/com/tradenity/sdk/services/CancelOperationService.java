@@ -38,7 +38,7 @@ public class CancelOperationService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<CancelOperation>> call =  getCancelOperationResource().index(fields);
+        Call<ResourcePage<CancelOperation>> call =  getCancelOperationResource().index(params);
         return createPage(call);
     }
 

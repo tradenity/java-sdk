@@ -38,7 +38,7 @@ public class PromotionService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Promotion>> call =  getPromotionResource().index(fields);
+        Call<ResourcePage<Promotion>> call =  getPromotionResource().index(params);
         return createPage(call);
     }
 

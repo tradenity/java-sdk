@@ -38,7 +38,7 @@ public class ReturnLineItemService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<ReturnLineItem>> call =  getReturnLineItemResource().index(fields);
+        Call<ResourcePage<ReturnLineItem>> call =  getReturnLineItemResource().index(params);
         return createPage(call);
     }
 

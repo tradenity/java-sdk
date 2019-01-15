@@ -38,7 +38,7 @@ public class VariantService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Variant>> call =  getVariantResource().index(fields);
+        Call<ResourcePage<Variant>> call =  getVariantResource().index(params);
         return createPage(call);
     }
 

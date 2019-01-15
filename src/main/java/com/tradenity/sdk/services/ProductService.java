@@ -38,7 +38,7 @@ public class ProductService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Product>> call =  getProductResource().index(fields);
+        Call<ResourcePage<Product>> call =  getProductResource().index(params);
         return createPage(call);
     }
 

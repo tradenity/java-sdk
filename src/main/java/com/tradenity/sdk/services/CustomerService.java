@@ -38,7 +38,7 @@ public class CustomerService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<Customer>> call =  getCustomerResource().index(fields);
+        Call<ResourcePage<Customer>> call =  getCustomerResource().index(params);
         return createPage(call);
     }
 

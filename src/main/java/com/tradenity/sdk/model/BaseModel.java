@@ -62,4 +62,30 @@ public class BaseModel {
         this.metaInfo = metaInfo;
     }
 
+    @Override
+    public int hashCode() {
+        String id = getId();
+        if(id != null) {
+            return id.hashCode();
+        }else{
+            return super.hashCode();
+        }
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof BaseModel)) {
+            return false;
+        }
+        String id = getId();
+        if(id != null) {
+            return getId().equals(((BaseModel) obj).getId());
+        }else{
+            return super.equals(obj);
+        }
+    }
+
 }

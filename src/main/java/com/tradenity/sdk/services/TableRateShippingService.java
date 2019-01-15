@@ -38,7 +38,7 @@ public class TableRateShippingService extends AbstractService{
             params.putAll(pageRequest.asMap());
         }
 
-        Call<ResourcePage<TableRateShipping>> call =  getTableRateShippingResource().index(fields);
+        Call<ResourcePage<TableRateShipping>> call =  getTableRateShippingResource().index(params);
         return createPage(call);
     }
 
