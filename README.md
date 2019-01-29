@@ -21,7 +21,7 @@ The SDK is available through maven central, You can install it using any compati
 <dependency>
     <groupId>com.tradenity</groupId>
     <artifactId>java-sdk</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 
 ```
@@ -30,13 +30,13 @@ The SDK is available through maven central, You can install it using any compati
 
 Add this line to the `dependency section`
 
-`compile com.tradenity:java-sdk:1.0.1`
+`compile com.tradenity:java-sdk:1.0.2`
 
 ### Ivy
 
 ```xml
 
-<dependency org="com.tradenity" name="java-sdk" rev="1.0.1"/>
+<dependency org="com.tradenity" name="java-sdk" rev="1.0.2"/>
 
 ```
 

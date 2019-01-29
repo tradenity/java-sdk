@@ -14,5 +14,5 @@ public interface ShippingMethodResource {
     Call<ResourcePage<ShippingMethod>> index(@QueryMap Map<String, Object> fields);
 
     @GET("shippingMethods/order/{orderId}")
-    Call<List<ShippingMethod>> findAllForOrder(@Path("orderId") String orderId);
+    Call<ResourcePage<ShippingMethod>> findAllForOrder(@Path("orderId") String orderId);
 }

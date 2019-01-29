@@ -87,8 +87,8 @@ public class ShippingMethodService extends AbstractService{
         }
     }
 
-    public List<ShippingMethod> findAllForOrder(String orderId){
-        Call<List<ShippingMethod>> call =  getShippingMethodResource().findAllForOrder(orderId);
-        return createList(call);
+    public Page<ShippingMethod> findAllForOrder(String orderId, PageRequest pageRequest){
+        Call<ResourcePage<ShippingMethod>> call =  getShippingMethodResource().findAllForOrder(orderId);
+        return createPage(call);
     }
 }

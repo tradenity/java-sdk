@@ -1,5 +1,8 @@
 ## Changelog
 
+Version 1.0.2
+- Bug fix: ShippingMethod#findAllForOrder return Page
+
 Version 1.0.1
 - Feature: Add 'Sort' class to allow for search result sorting.
 - Bug fix: add 'PageRequest' parameters to missing requests. 
